@@ -1,0 +1,857 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Qüestionari d'orientació — IES Sineu</title>
+<style>
+:root{
+  --c1:#7C3AED;--c1l:#EDE9FE;--c1d:#4C1D95;
+  --c4:#EC4899;--c4l:#FCE7F3;--c4d:#831843;
+  --c3:#F59E0B;--c3l:#FEF3C7;--c3d:#78350F;
+  --c5:#10B981;--c5l:#D1FAE5;--c5d:#064E3B;
+  --c6:#EF4444;--c6l:#FEE2E2;--c6d:#7F1D1D;
+  --bg:#F8F7FF;--surf:#fff;
+  --text:#1a1a2e;--muted:#64748b;--light:#94a3b8;--bdr:#e2e8f0;
+  --r:14px;--rl:20px;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:var(--bg);color:var(--text);min-height:100vh;font-size:15px;line-height:1.5;-webkit-font-smoothing:antialiased;}
+.nav-bar{background:var(--surf);border-bottom:2px solid var(--bdr);padding:0 20px;display:flex;align-items:center;gap:12px;height:52px;position:sticky;top:0;z-index:100;}
+.nav-logo{display:flex;align-items:center;gap:8px;font-size:13px;font-weight:800;color:var(--text);}
+.nav-spacer{flex:1;}
+.nav-btn{padding:7px 14px;border-radius:8px;font-size:13px;font-weight:700;font-family:inherit;cursor:pointer;border:2px solid var(--bdr);background:var(--surf);color:var(--muted);transition:all .15s;}
+.nav-btn:hover{background:var(--bg);}
+.nav-btn.active{background:var(--c1l);border-color:var(--c1);color:var(--c1);}
+.intro-wrap{max-width:600px;margin:0 auto;padding:20px 16px 60px;}
+.intro-hero{background:var(--surf);border:2px solid var(--bdr);border-radius:var(--rl);padding:28px 24px 24px;margin-bottom:16px;text-align:center;}
+.intro-hero h1{font-size:22px;font-weight:800;line-height:1.25;margin:16px 0 8px;}
+.intro-hero p{font-size:14px;color:var(--muted);}
+.intro-how{display:flex;align-items:center;gap:8px;background:var(--surf);border:2px solid var(--bdr);border-radius:var(--r);padding:16px 18px;margin-bottom:14px;}
+.ih-step{display:flex;align-items:center;gap:8px;flex:1;}
+.ih-num{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:800;flex-shrink:0;}
+.ih-text{font-size:13px;color:var(--muted);line-height:1.3;}
+.ih-text strong{color:var(--text);}
+.ih-arrow{font-size:18px;color:var(--bdr);font-weight:700;flex-shrink:0;}
+.card{background:var(--surf);border:2px solid var(--bdr);border-radius:var(--rl);padding:22px;margin-bottom:14px;}
+.name-wrap{position:relative;}
+.name-wrap .ni{position:absolute;left:14px;top:50%;transform:translateY(-50%);font-size:18px;}
+.name-input{width:100%;padding:13px 14px 13px 44px;border:2px solid var(--bdr);border-radius:var(--r);font-size:15px;font-family:inherit;background:var(--surf);color:var(--text);transition:border-color .15s;}
+.name-input:focus{outline:none;border-color:var(--c1);box-shadow:0 0 0 3px var(--c1l);}
+.intro-stats{display:flex;align-items:center;background:var(--surf);border:2px solid var(--bdr);border-radius:var(--r);padding:14px 20px;margin-bottom:14px;}
+.is-item{flex:1;text-align:center;}
+.is-val{display:block;font-size:22px;font-weight:800;color:var(--c1);}
+.is-lbl{display:block;font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.4px;margin-top:2px;}
+.is-sep{width:2px;height:36px;background:var(--bdr);border-radius:1px;}
+.btn-start{width:100%;padding:17px;background:var(--c1);color:#fff;border:none;border-radius:var(--r);font-size:17px;font-weight:800;font-family:inherit;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;transition:opacity .15s,transform .05s;}
+.btn-start:hover{opacity:.88;}.btn-start:active{transform:scale(.99);}
+.btn-ghost{width:100%;padding:13px;background:transparent;color:var(--muted);border:2px solid var(--bdr);border-radius:var(--r);font-size:14px;font-weight:700;font-family:inherit;cursor:pointer;margin-top:10px;transition:background .15s;}
+.btn-ghost:hover{background:var(--bdr);}
+.quiz-layout{display:flex;min-height:100vh;max-width:940px;margin:0 auto;}
+.sidebar{width:220px;flex-shrink:0;padding:20px 14px;position:sticky;top:52px;height:calc(100vh - 52px);overflow-y:auto;border-right:2px solid var(--bdr);background:var(--surf);}
+.sb-logo{display:flex;align-items:center;gap:8px;margin-bottom:20px;padding-bottom:14px;border-bottom:2px solid var(--bdr);}
+.sb-logo-text{font-size:12px;font-weight:800;color:var(--text);line-height:1.2;}
+.sb-section{margin-bottom:6px;}
+.sb-head{display:flex;align-items:center;gap:7px;padding:7px 8px;cursor:pointer;border-radius:10px;transition:background .12s;}
+.sb-head:hover{background:var(--bg);}
+.sb-icon{width:30px;height:30px;border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.sb-name{font-size:11.5px;font-weight:700;flex:1;line-height:1.25;}
+.sb-pct{font-size:11px;font-weight:800;}
+.sb-bar{height:3px;border-radius:2px;background:var(--bdr);margin:0 8px 4px;overflow:hidden;}
+.sb-fill{height:100%;border-radius:2px;transition:width .4s;}
+.quiz-main{flex:1;padding:20px 24px 80px;min-width:0;}
+.top-bar{display:flex;align-items:center;gap:12px;margin-bottom:20px;background:var(--surf);border:2px solid var(--bdr);border-radius:var(--r);padding:12px 16px;}
+.tb-pct{font-size:22px;font-weight:800;color:var(--c1);min-width:52px;}
+.tb-track{flex:1;height:10px;background:var(--bdr);border-radius:5px;overflow:hidden;}
+.tb-fill{height:100%;border-radius:5px;background:var(--c1);transition:width .35s cubic-bezier(.4,0,.2,1);}
+.tb-label{font-size:12px;color:var(--muted);font-weight:700;min-width:80px;text-align:right;}
+.sec-block{margin-bottom:8px;}
+.sec-header{border-radius:var(--r);margin-bottom:10px;overflow:hidden;}
+.sec-header-inner{display:flex;align-items:center;gap:14px;padding:16px 20px;color:#fff;font-weight:800;font-size:15px;}
+.sh-count{font-size:12px;opacity:.8;margin-left:auto;font-weight:700;}
+.q-card{background:var(--surf);border:2px solid var(--bdr);border-radius:var(--r);padding:16px 18px;margin-bottom:8px;}
+.q-num{font-size:10px;font-weight:800;color:var(--light);letter-spacing:.8px;text-transform:uppercase;margin-bottom:4px;}
+.q-text{font-size:14.5px;color:var(--text);margin-bottom:12px;line-height:1.45;}
+.scale{display:flex;gap:5px;}
+.sbtn{flex:1;padding:8px 3px;border:2px solid var(--bdr);border-radius:10px;background:var(--surf);cursor:pointer;font-family:inherit;font-size:12px;color:var(--text);transition:all .12s;display:flex;flex-direction:column;align-items:center;gap:2px;min-height:48px;justify-content:center;}
+.sbtn .sn{font-weight:800;font-size:17px;line-height:1;}
+.sbtn .sl{font-size:10px;color:var(--muted);line-height:1.1;text-align:center;}
+.sbtn.v0 .sn{color:#EF4444;}.sbtn.v1 .sn{color:#F97316;}.sbtn.v2 .sn{color:#EAB308;}.sbtn.v3 .sn{color:#84CC16;}.sbtn.v4 .sn{color:#10B981;}
+.sbtn.v0:hover:not(.selected){background:#FEE2E2;border-color:#EF4444;}
+.sbtn.v1:hover:not(.selected){background:#FFF7ED;border-color:#F97316;}
+.sbtn.v2:hover:not(.selected){background:#FEFCE8;border-color:#EAB308;}
+.sbtn.v3:hover:not(.selected){background:#F7FEE7;border-color:#84CC16;}
+.sbtn.v4:hover:not(.selected){background:#D1FAE5;border-color:#10B981;}
+.sbtn.selected .sn,.sbtn.selected .sl{color:#fff!important;}
+.sbtn.v0.selected{background:#EF4444;border-color:#EF4444;}
+.sbtn.v1.selected{background:#F97316;border-color:#F97316;}
+.sbtn.v2.selected{background:#EAB308;border-color:#EAB308;}
+.sbtn.v3.selected{background:#84CC16;border-color:#84CC16;}
+.sbtn.v4.selected{background:#10B981;border-color:#10B981;}
+.btn-submit{width:100%;padding:17px;background:var(--c1);color:#fff;border:none;border-radius:var(--r);font-size:17px;font-weight:800;font-family:inherit;cursor:pointer;transition:opacity .15s,transform .05s;display:flex;align-items:center;justify-content:center;gap:8px;margin-top:20px;}
+.btn-submit:hover:not(:disabled){opacity:.88;}.btn-submit:active:not(:disabled){transform:scale(.99);}
+.btn-submit:disabled{background:var(--bdr);color:var(--light);cursor:not-allowed;}
+.btn-reset{width:100%;padding:13px;background:transparent;color:var(--muted);border:2px solid var(--bdr);border-radius:var(--r);font-size:14px;font-weight:700;font-family:inherit;cursor:pointer;margin-top:10px;}
+.btn-reset:hover{background:var(--bdr);}
+.loading-wrap{max-width:460px;margin:0 auto;padding:60px 24px;text-align:center;}
+.load-title{font-size:20px;font-weight:800;margin:24px 0 6px;}
+.load-sub{font-size:14px;color:var(--muted);}
+.load-bar{height:8px;background:var(--bdr);border-radius:4px;overflow:hidden;margin:24px 0;}
+.load-fill{height:100%;background:var(--c1);border-radius:4px;animation:lp 2.5s ease-in-out forwards;}
+@keyframes lp{from{width:0}to{width:92%}}
+.load-dots span{display:inline-block;width:8px;height:8px;border-radius:50%;margin:0 3px;animation:bounce 1.2s infinite;}
+.load-dots span:nth-child(1){background:var(--c1);}.load-dots span:nth-child(2){background:var(--c4);animation-delay:.2s;}.load-dots span:nth-child(3){background:var(--c3);animation-delay:.4s;}
+@keyframes bounce{0%,80%,100%{transform:scale(.6);opacity:.4}40%{transform:scale(1);opacity:1}}
+.results-wrap{max-width:720px;margin:0 auto;padding:0 16px 80px;}
+.res-hero{background:var(--surf);border:2px solid var(--bdr);border-radius:var(--rl);padding:28px 24px;margin-bottom:20px;text-align:center;}
+.res-hero h2{font-size:22px;font-weight:800;margin:16px 0 4px;}
+.res-hero .meta{font-size:13px;color:var(--muted);}
+.sum-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:24px;}
+.sum-card{background:var(--surf);border:2px solid var(--bdr);border-radius:var(--r);padding:14px 12px;text-align:center;}
+.sum-card .scv{font-size:22px;font-weight:800;color:var(--c1);}
+.sum-card .scl{font-size:11px;color:var(--muted);margin-top:3px;font-weight:700;text-transform:uppercase;letter-spacing:.3px;}
+.sec-title{font-size:17px;font-weight:800;margin:28px 0 6px;}
+.sec-desc{font-size:13px;color:var(--muted);margin-bottom:14px;}
+.top-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px;margin-bottom:24px;}
+.top-card{border-radius:var(--rl);padding:18px 16px;border:2px solid var(--bdr);background:var(--surf);}
+.top-card.tc-1{border-color:var(--c1);background:var(--c1l);}
+.top-card.tc-2{border-color:var(--c4);background:var(--c4l);}
+.top-card.tc-3{border-color:var(--c3);background:var(--c3l);}
+.tc-medal{font-size:28px;margin-bottom:6px;}
+.tc-rank{font-size:10px;font-weight:800;letter-spacing:.8px;text-transform:uppercase;margin-bottom:4px;opacity:.7;}
+.tc-name{font-size:13px;font-weight:800;line-height:1.3;margin-bottom:8px;}
+.tc-pct{font-size:26px;font-weight:800;line-height:1;}
+.tc-1 .tc-rank,.tc-1 .tc-name,.tc-1 .tc-pct{color:var(--c1d);}
+.tc-2 .tc-rank,.tc-2 .tc-name,.tc-2 .tc-pct{color:var(--c4d);}
+.tc-3 .tc-rank,.tc-3 .tc-name,.tc-3 .tc-pct{color:var(--c3d);}
+.tc-z{font-size:11px;color:var(--muted);margin-top:2px;}
+.interp-box{background:var(--c1l);border-radius:var(--rl);padding:22px 24px;margin:20px 0;border-left:4px solid var(--c1);border-top-left-radius:0;border-bottom-left-radius:0;}
+.ib-head{font-size:14px;font-weight:800;color:var(--c1d);margin-bottom:10px;}
+.ib-body{font-size:14px;line-height:1.75;color:var(--c1d);white-space:pre-wrap;}
+.bar-row{display:flex;align-items:center;gap:10px;margin-bottom:8px;}
+.bar-lbl{width:185px;font-size:12px;color:var(--text);flex-shrink:0;line-height:1.2;font-weight:600;}
+.bar-track{flex:1;height:18px;background:var(--bg);border-radius:6px;overflow:hidden;border:2px solid var(--bdr);}
+.bar-fill{height:100%;border-radius:5px;transition:width .9s cubic-bezier(.4,0,.2,1);}
+.bar-val{width:40px;text-align:right;font-size:12px;font-weight:700;color:var(--muted);}
+.leg-row{display:flex;gap:10px;flex-wrap:wrap;font-size:11px;color:var(--muted);margin-bottom:12px;}
+.li{display:flex;align-items:center;gap:4px;}
+.ld{width:10px;height:10px;border-radius:3px;}
+.careers-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px;margin-bottom:24px;}
+.career-card{background:var(--surf);border:2px solid var(--bdr);border-radius:var(--r);padding:14px 16px;transition:border-color .15s;cursor:pointer;}
+.career-card:hover{border-color:var(--c1);}
+.career-card.open{border-color:var(--c1);background:var(--c1l);}
+.cc-header{display:flex;align-items:flex-start;gap:8px;margin-bottom:6px;}
+.cc-icon{font-size:22px;flex-shrink:0;}
+.cc-name{font-size:13.5px;font-weight:800;line-height:1.3;color:var(--text);}
+.ct{display:inline-block;font-size:10px;background:var(--c1l);color:var(--c1d);padding:2px 8px;border-radius:5px;font-weight:700;margin:2px 2px 0 0;}
+.career-card.open .ct{background:rgba(255,255,255,.7);}
+.cc-desc-panel{margin-top:10px;border-top:1.5px solid var(--bdr);padding-top:10px;display:none;}
+.career-card.open .cc-desc-panel{display:block;}
+.cc-desc-text{font-size:13px;color:var(--muted);line-height:1.55;margin-bottom:8px;}
+.career-card.open .cc-desc-text{color:var(--c1d);}
+.cc-profs-title{font-size:10px;font-weight:800;color:var(--light);text-transform:uppercase;letter-spacing:.6px;margin-bottom:5px;}
+.career-card.open .cc-profs-title{color:var(--c1d);opacity:.7;}
+.cc-profs{display:flex;flex-wrap:wrap;gap:4px;}
+.cc-prof{font-size:11px;background:rgba(255,255,255,.8);color:var(--c1d);border:1.5px solid rgba(124,58,237,.25);padding:2px 8px;border-radius:20px;font-weight:600;}
+.assig-sec{background:var(--surf);border:2px solid var(--bdr);border-radius:var(--r);padding:18px 20px;margin-bottom:24px;}
+.ar{display:flex;align-items:center;gap:10px;font-size:13px;margin-bottom:7px;}
+.al{flex:1;font-weight:600;}
+.ab{flex:0 0 90px;height:8px;background:var(--bdr);border-radius:4px;overflow:hidden;}
+.af{height:100%;background:var(--c1);transition:width .7s;}
+.av{width:36px;text-align:right;font-size:12px;color:var(--muted);font-weight:700;}
+.act-row{display:flex;gap:10px;margin-top:20px;}
+.act-row .btn-start,.act-row .btn-ghost{margin:0;}
+.btn-start.sm{padding:14px;font-size:15px;}
+.pp-section{margin-bottom:8px;}
+.pp-consell{background:var(--c3l);border-left:4px solid var(--c3);border-radius:0 var(--rl) var(--rl) 0;padding:18px 20px;margin-bottom:24px;}
+.pp-consell-head{font-size:13px;font-weight:800;color:var(--c3d);margin-bottom:8px;}
+.pp-consell-body{font-size:14px;line-height:1.65;color:var(--c3d);}
+.pp-block-title{font-size:14px;font-weight:800;color:var(--muted);text-transform:uppercase;letter-spacing:.6px;margin:20px 0 10px;}
+.pp-recursos-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:10px;margin-bottom:12px;}
+.pp-recurs{border-radius:16px;padding:16px 14px;text-decoration:none;color:inherit;display:block;transition:transform .12s,opacity .12s;}
+.pp-recurs:hover{transform:translateY(-2px);opacity:.9;}
+.pp-recurs-icon{width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:22px;margin-bottom:10px;}
+.pp-contacte{display:flex;align-items:center;gap:14px;background:var(--surf);border:2px solid var(--bdr);border-radius:var(--r);padding:16px 18px;margin-top:12px;}
+.pp-contacte-icon{font-size:26px;flex-shrink:0;}
+.pp-contacte-text{font-size:13px;color:var(--muted);margin-bottom:3px;}
+.pp-contacte-email{font-size:14px;font-weight:800;color:var(--c1);text-decoration:none;}
+.pp-contacte-email:hover{text-decoration:underline;}
+.orient-wrap{max-width:860px;margin:0 auto;padding:24px 16px 60px;}
+.orient-hero{background:var(--surf);border:2px solid var(--bdr);border-radius:var(--rl);padding:24px;margin-bottom:20px;}
+.orient-hero h2{font-size:20px;font-weight:800;margin-bottom:4px;}
+.orient-hero p{font-size:13.5px;color:var(--muted);}
+.orient-stat{display:inline-block;background:var(--c1l);border-radius:10px;padding:8px 14px;margin-top:12px;text-align:center;}
+.orient-stat .ov{font-size:20px;font-weight:800;color:var(--c1);}
+.orient-stat .ol{font-size:11px;color:var(--c1d);font-weight:700;}
+.orient-empty{text-align:center;padding:60px 20px;color:var(--muted);}
+.orient-empty p{font-size:15px;font-weight:600;}
+.alumnes-list{display:flex;flex-direction:column;gap:8px;}
+.alumne-row{background:var(--surf);border:2px solid var(--bdr);border-radius:var(--r);padding:14px 18px;display:flex;align-items:center;gap:14px;cursor:pointer;transition:border-color .15s;}
+.alumne-row:hover{border-color:var(--c1);}
+.alumne-avatar{width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:800;color:#fff;flex-shrink:0;}
+.alumne-info{flex:1;min-width:0;}
+.alumne-nom{font-size:14px;font-weight:800;}
+.alumne-data{font-size:12px;color:var(--muted);margin-top:1px;}
+.alumne-top{display:flex;gap:6px;margin-top:4px;flex-wrap:wrap;}
+.alumne-tag{font-size:11px;font-weight:700;padding:2px 10px;border-radius:20px;}
+.alumne-pct{font-size:22px;font-weight:800;color:var(--c1);min-width:52px;text-align:right;}
+.alumne-chevron{color:var(--light);font-size:18px;}
+.orient-btn-del{padding:6px 12px;border-radius:8px;font-size:12px;font-weight:700;font-family:inherit;cursor:pointer;border:2px solid var(--c6l);background:var(--c6l);color:var(--c6);transition:all .15s;flex-shrink:0;}
+.orient-btn-del:hover{background:var(--c6);color:#fff;border-color:var(--c6);}
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:200;overflow-y:auto;padding:20px;}
+.modal-box{background:var(--surf);border-radius:var(--rl);width:100%;max-width:700px;padding:28px;position:relative;margin:40px auto;}
+.modal-close{position:absolute;top:16px;right:16px;width:32px;height:32px;border-radius:50%;border:2px solid var(--bdr);background:var(--surf);cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;font-family:inherit;color:var(--muted);}
+.modal-close:hover{background:var(--bg);}
+.pwd-input{width:100%;padding:12px 14px;border:2px solid var(--bdr);border-radius:var(--r);font-size:15px;font-family:inherit;margin-bottom:8px;transition:border-color .15s;}
+.pwd-input:focus{outline:none;border-color:var(--c1);}
+@media(max-width:640px){.quiz-layout{flex-direction:column;}.sidebar{width:100%;height:auto;position:relative;border-right:none;border-bottom:2px solid var(--bdr);padding:12px 16px;top:0;}.quiz-main{padding:16px 12px 80px;}.bar-lbl{width:110px;font-size:11px;}}
+@media print{.nav-bar,.sidebar,.top-bar,.btn-submit,.btn-reset,.btn-start,.btn-ghost,.act-row{display:none!important;}body{background:white;}}
+</style>
+</head>
+<body>
+<div id="app-root"></div>
+<script>
+var Q=["Tenc paciència per revisar detalls i detectar errors petits.","Quan hi ha un problema, m'agrada investigar-ne la causa.","M'interessa entendre per què passen les coses, no només saber què passa.","M'agrada pensar com es pot fer una cosa més eficient o millor.","M'agrada fer proves o experiments per comprovar si una idea és correcta.","M'agrada cercar patrons o relacions quan tenc dades o informació.","Em sent còmode/a treballant amb informació ordenada i estructurada.","Em sent còmode/a interpretant gràfics, taules o estadístiques.","Em sent còmode/a fent càlculs o treballant amb números.","Disfrut intentant resoldre problemes difícils pas a pas fins trobar la solució.","Disfrut millorant objectes o sistemes existents.","Em sent còmode/a treballant en entorns manuals o mecànics.","Em sent satisfet/a quan veig el resultat del meu treball en tasques manuals.","Gaudesc resolent problemes pràctics del dia a dia.","M'agrada muntar, reparar o construir coses.","M'agrada seguir instruccions tècniques.","M'agrada utilitzar eines o maquinària.","M'interessa entendre com es fabrica un producte.","No em fa por embrutar-me les mans treballant.","Preferesc aprendre fent que només escoltant.","Disfrut pensant solucions poc convencionals.","Em motiva crear contingut visual o narratiu.","Gaudesc escrivint històries o reflexions.","Gaudesc expressant-me a través del dibuix, l'escriptura o altres formes creatives.","M'agrada donar un toc personal als projectes.","M'agrada experimentar amb colors, formes o estils.","M'agrada imaginar idees noves i originals.","M'agrada transformar una idea en una proposta concreta.","M'interessa el disseny d'espais o objectes.","Preferesc tasques amb llibertat creativa.","Em motiva contribuir al benestar social i emocional dels altres.","Em sent còmode/a treballant en equip.","Em sent satisfet/a quan qualcú progressa gràcies al meu suport.","Gaudesc col·laborant en projectes col·lectius/solidaris.","Gaudesc explicant coses a altres persones.","M'agrada escoltar els altres i intentar ajudar-los.","M'agrada mediar en conflictes.","M'agrada motivar o animar els altres.","M'interessa entendre com pensen i senten les persones.","Preferesc treballar amb persones més que amb objectes.","Disfrut participant en debats.","Em sent còmode/a mantenint converses i exposant idees.","Em sent còmode/a negociant.","Gaudesc defensant les meves idees.","Gaudesc preparant presentacions.","M'agrada adaptar el meu discurs segons amb qui parlo.","M'agrada ser persuasiu/convèncer altres persones.","M'agrada parlar en públic.","M'agrada promocionar idees, projectes o productes.","M'interessa la manera com es construeixen i es difonen els missatges.","Em motiva millorar l'organització d'un grup.","Em sent còmode/a gestionant recursos.","M'agrada assumir responsabilitats.","Gaudesc organitzant tasques o esdeveniments.","Gaudesc supervisant que tot funcioni correctament.","M'agrada establir objectius i seguir-los.","M'agrada planificar activitats amb antelació.","M'agrada treballar amb calendaris i planificacions.","M'interessa coordinar equips.","M'interessa la gestió de finances en general.","Em motiva cuidar el medi ambient.","Em sent bé treballant en contacte amb la terra o els animals.","Gaudesc fent activitats físiques a l'exterior.","Gaudesc observant la natura.","M'agrada estar a l'aire lliure.","M'agrada participar en iniciatives ecològiques.","M'agrada treballar fora d'una oficina.","M'interessa entendre els ecosistemes.","M'interessa la sostenibilitat i l'ecologia.","Preferesc entorns naturals als urbans.","Em motiva crear solucions digitals útils.","Em sent còmode/a treballant amb ordinadors moltes hores.","Gaudesc creant contingut digital.","Gaudesc resolent problemes informàtics.","M'agrada aprendre a utilitzar noves eines digitals.","M'agrada automatitzar tasques.","M'agrada explorar novetats tecnològiques.","M'interessa el funcionament de les aplicacions o plataformes.","M'interessa la seguretat digital.","Preferesc entorns tecnològics a manuals.","M'interessa detectar oportunitats.","M'agrada innovar en processos o idees.","M'agrada fixar-me reptes ambiciosos.","M'agrada assumir riscos calculats.","Preferesc treballar amb autonomia.","Gaudesc iniciant projectes des de zero.","M'adapt bé a situacions noves.","M'agrada trobar-me davant desafiaments nous.","Em sent còmode/a prenent decisions importants.","Em motiva liderar iniciatives pròpies.","M'interessa entendre els símptomes i cercar possibles causes.","M'agrada escoltar amb atenció preocupacions relacionades amb la salut.","M'agradaria acompanyar persones en processos de recuperació o millora.","Gaudesc fent tasques que requereixen precisió i responsabilitat.","Em veig capaç de mantenir la calma en situacions d'urgència o pressió.","Em sentiria còmode/a treballant amb protocols estrictes d'higiene i seguretat.","M'agradaria atendre persones que es troben malament o vulnerables.","Em motiva contribuir directament al benestar físic d'altres persones.","M'interessa estudiar el funcionament del cos humà en profunditat.","M'interessa entendre com actuen els medicaments o intervencions.","M'agradaria contribuir a avenços científics que tinguin impacte social.","M'agrada investigar les causes d'una malaltia o problema de salut.","M'agradaria treballar amb protocols d'investigació detallats.","Gaudesc analitzant dades o resultats per treure conclusions rigoroses.","M'agradaria treballar en laboratoris o entorns clínics.","Em motiva participar en projectes que busquen millorar tractaments.","M'interessa ajudar altres persones a progressar acadèmicament o personalment.","M'agrada preparar materials o activitats perquè altres aprenguin.","M'agrada explicar conceptes perquè altres persones els entenguin.","M'agrada estructurar continguts de manera clara i ordenada.","Gaudesc responent preguntes i aclarint dubtes.","M'agrada aportar idees per fomentar la curiositat i el pensament crític.","Normalment adapt el meu llenguatge segons qui m'escolta.","Em sent còmode/a parlant davant un grup.","Em sentiria còmode/a gestionant un grup amb ritmes d'aprenentatge diferents.","Em motiva veure com algú millora gràcies a les meves explicacions.","M'interessa aprendre protocols d'actuació en situacions crítiques.","M'agrada entrenar habilitats físiques o tècniques relacionades amb la seguretat.","M'agrada actuar amb rapidesa quan hi ha una situació inesperada.","Gaudesc treballant en equips molt coordinats amb rols definits.","M'agradaria investigar delictes o ajudar a prevenir-los.","Em veig capaç de mantenir la disciplina i seguir instruccions estrictes.","Em sent còmode/a intervenint en situacions de risc o emergència.","Em sent capaç de prendre decisions sota pressió.","Em motiva protegir persones o espais davant possibles perills.","Em motiva contribuir a la seguretat i l'ordre en la comunitat."];
+var ASS=["Matèries lingüístiques","Matemàtiques","Llengües estrangeres","De caràcter humanístic (Filosofia, Història, Literatura...)","De caràcter científic (Biologia, Química, Física...)","De caràcter tècnic-tecnològic (Física, Tecnologia, Dibuix Tècnic...)","De caràcter artístic (Música, Plàstica, Cultura Audiovisual...)","De caràcter social (Economia, FOPD, Geografia...)","Educació Física"];
+var AMB=["ANALÍTIC / CIENTÍFIC","TÈCNIC / PRÀCTIC","CREATIU / ARTÍSTIC","SOCIAL / AJUDA","COMUNICACIÓ / PERSUASIÓ","ORGANITZACIÓ / GESTIÓ","NATURA / ENTORN","DIGITAL / TECNOLÒGIC","EMPRENEDORIA / INICIATIVA","SANITARI – ATENCIÓ","SANITARI – INVESTIGACIÓ","DOCÈNCIA / FORMACIÓ","SEGURETAT – PROTECCIÓ – EMERGÈNCIES"];
+var ATR=[[0],[0],[0],[0,1,8],[0],[0],[0,5],[0],[0],[0,1,8],[0,1,8],[1],[1],[1],[1],[1],[1],[1],[1],[1,11],[2,8],[2],[2],[2],[2],[2],[2],[2,4,8],[2],[2],[3],[3],[3],[3],[3,4,11],[3],[3],[3,4,11],[3],[3],[4],[4],[4],[4],[4],[4],[4],[4,11,8],[4],[4],[5],[5],[5],[5],[5],[5,8],[5],[5],[5,8],[5],[6],[6],[6],[6,12,9],[6],[6],[6,9,12],[6],[6],[6],[7],[7],[7],[7],[7,2,8],[7,8,5],[7],[7],[7],[7],[8],[8,2,1],[8],[8],[8],[8],[8],[8],[8,12,5],[8],[9,10],[9,10],[9,10],[9,10,12,5],[9,10,12],[9,12],[9,10],[9,10],[10,9],[10,9],[10,9],[10,9],[10,9],[10,0,9],[10,9],[10,9],[11],[11],[11],[11,5,4],[11],[11],[11],[11],[11,3,5,9],[11],[12],[12],[12],[12,5],[12],[12],[12,5,9,7],[12],[12],[12]];
+var ATRA=[[3,11,4],[0,7],[3,4,11],[3,11],[0,9,10],[1,7,0],[2],[5,4,8,3],[12,1]];
+var LBL=["Gens","Poc","Una mica","Bastant","Molt"];
+var SECS=[{s:0,e:30,t:"Sobre tu",c:"#7C3AED",b:"#EDE9FE",i:0},{s:30,e:60,t:"Relacions i comunicació",c:"#EC4899",b:"#FCE7F3",i:1},{s:60,e:90,t:"Entorns i situacions",c:"#F59E0B",b:"#FEF3C7",i:2},{s:90,e:106,t:"Salut i investigació",c:"#10B981",b:"#D1FAE5",i:3},{s:106,e:116,t:"Ensenyament",c:"#0EA5E9",b:"#E0F2FE",i:4},{s:116,e:126,t:"Seguretat",c:"#EF4444",b:"#FEE2E2",i:5},{s:-1,e:-1,t:"Assignatures",c:"#6366F1",b:"#EEF2FF",i:6,isA:true}];
+var AMBCOL=["#7C3AED","#F59E0B","#EC4899","#10B981","#0EA5E9","#6366F1","#84CC16","#0EA5E9","#F97316","#EF4444","#10B981","#3B82F6","#EF4444"];
+var AMBBG=["#EDE9FE","#FEF3C7","#FCE7F3","#D1FAE5","#E0F2FE","#EEF2FF","#F7FEE7","#E0F2FE","#FFF7ED","#FEE2E2","#D1FAE5","#DBEAFE","#FEE2E2"];
+var SK="or_v7",SKA="or_al_v1",PWD="1234";
+
+var state={step:"intro",nom:"",ans:new Array(Q.length).fill(null),ansA:new Array(ASS.length).fill(null),res:null,interp:null,careers:[]};
+var view="alumne",auth=false,_cache=null;
+
+function sv(){try{localStorage.setItem(SK,JSON.stringify(state));}catch(e){}}
+function ld(){try{var s=localStorage.getItem(SK);if(s){var p=JSON.parse(s);if(p.ans&&p.ans.length===Q.length){state=p;if(state.step==="results"){if(!state.res||!state.res.sorted)state.res=calc();if(!state.interp)state.interp=interp(state.res);if(!state.careers||!state.careers.length)state.careers=getCareers(state.res);}}}}catch(e){}}
+function clr(){try{localStorage.removeItem(SK);}catch(e){}state={step:"intro",nom:"",ans:new Array(Q.length).fill(null),ansA:new Array(ASS.length).fill(null),res:null,interp:null,careers:[]};}
+function e(s){if(s==null)return"";return String(s).replace(/[&<>"']/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c];});}
+function hasInc(){return state.ans.some(function(a){return a!==null;})&&!state.ans.every(function(a){return a!==null;});}
+function avCol(n){var cs=["#7C3AED","#EC4899","#0EA5E9","#10B981","#F59E0B","#EF4444","#6366F1","#F97316"];return cs[n?n.charCodeAt(0)%cs.length:0];}
+function ini(n){if(!n)return"?";var p=n.trim().split(" ");return p.length>=2?p[0][0].toUpperCase()+p[1][0].toUpperCase():n.slice(0,2).toUpperCase();}
+function zCol(z){if(z>=1)return"#7C3AED";if(z>=0.3)return"#0EA5E9";if(z>=-0.3)return"#94a3b8";if(z>=-1)return"#F59E0B";return"#EF4444";}
+
+// === Emmagatzematge compartit (backend Google Apps Script) ===
+// IMPORTANT: substitueix el text de sota per la URL del teu web app (acaba en /exec)
+var API="https://script.google.com/macros/s/AKfycbw3aPiymG8oCKACRi7S_MaV-hTFkIG1RK6uwCntBOSX2xVKZWIG24KdrSN2dZ88VieZJg/exec";
+function apiOk(){return API&&API.indexOf("/exec")!==-1;}
+
+async function getAl(){
+  if(_cache!==null)return _cache;
+  if(!apiOk()){_cache=[];return _cache;}
+  try{
+    var r=await fetch(API,{method:"GET"});
+    var data=await r.json();
+    _cache=Array.isArray(data)?data:[];
+  }catch(e){_cache=[];}
+  return _cache;
+}
+async function saveAl(a){
+  if(!apiOk())return;
+  try{
+    await fetch(API,{method:"POST",headers:{"Content-Type":"text/plain;charset=utf-8"},body:JSON.stringify({action:"save",alumne:a})});
+  }catch(e){}
+  _cache=null;
+}
+async function delAl(id){
+  if(!apiOk())return;
+  try{
+    await fetch(API,{method:"POST",headers:{"Content-Type":"text/plain;charset=utf-8"},body:JSON.stringify({action:"delete",id:id})});
+  }catch(e){}
+  _cache=null;
+}
+
+function calc(){
+  var tot=new Array(AMB.length).fill(0),mx=new Array(AMB.length).fill(0);
+  for(var i=0;i<Q.length;i++){var v=state.ans[i]||0;ATR[i].forEach(function(a){tot[a]+=v;mx[a]+=4;});}
+  for(var i=0;i<ASS.length;i++){var v=state.ansA[i]||0;ATRA[i].forEach(function(a){tot[a]+=v;mx[a]+=4;});}
+  var pcts=tot.map(function(t,i){return mx[i]>0?(t/mx[i])*100:0;});
+  var mean=pcts.reduce(function(a,b){return a+b;},0)/pcts.length;
+  var std=Math.sqrt(pcts.reduce(function(ac,v){return ac+Math.pow(v-mean,2);},0)/pcts.length);
+  var zs=pcts.map(function(p){return std>0?(p-mean)/std:0;});
+  var ar=AMB.map(function(name,i){return{name:name,p:pcts[i],z:zs[i]};});
+  return{ar:ar,mean:mean,std:std,sorted:ar.slice().sort(function(a,b){return b.p-a.p;})};
+}
+
+var DESC={
+  "ANALÍTIC / CIENTÍFIC":{str:"tens una ment curiosa que vol entendre el perquè de les coses",wk:"et resulta menys natural treballar amb números o raonaments abstractes",pt:"analitic"},
+  "TÈCNIC / PRÀCTIC":{str:"et motiva veure resultats concrets i tangibles del que fas",wk:"no t'atreuen les feines manuals o mecàniques",pt:"tecnic"},
+  "CREATIU / ARTÍSTIC":{str:"tens necessitat d'expressar-te i d'aportar la teva visió personal als projectes",wk:"no et sents particularment atret/a per l'expressió artística",pt:"creatiu"},
+  "SOCIAL / AJUDA":{str:"tens una clara vocació de servei: la teva motivació passa per acompanyar i ajudar els altres",wk:"no et veus especialment en una feina centrada en la cura o ajuda directa",pt:"social"},
+  "COMUNICACIÓ / PERSUASIÓ":{str:"et sents còmode/a comunicant-te, defensant idees i adaptant el teu missatge",wk:"no et veus parlant en públic ni convencent altres persones",pt:"comunicador"},
+  "ORGANITZACIÓ / GESTIÓ":{str:"tens cap per planificar, supervisar i fer que les coses funcionin amb ordre",wk:"no t'atreuen les tasques de planificació o coordinació",pt:"organitzador"},
+  "NATURA / ENTORN":{str:"et motiva l'aire lliure i tot allò relacionat amb el medi ambient",wk:"no t'atreuen les feines a l'exterior",pt:"natura"},
+  "DIGITAL / TECNOLÒGIC":{str:"et motiva el món digital i les eines tecnològiques",wk:"no t'atreu el món tecnològic",pt:"digital"},
+  "EMPRENEDORIA / INICIATIVA":{str:"tens iniciativa pròpia i no et fa por començar projectes nous",wk:"prefereixes seguir camins ja marcats",pt:"emprenedor"},
+  "SANITARI – ATENCIÓ":{str:"tens vocació per la cura de la salut i et motiva el contacte directe amb pacients",wk:"no et veus treballant en l'àmbit sanitari assistencial",pt:"sanitari"},
+  "SANITARI – INVESTIGACIÓ":{str:"et motiva la investigació científica aplicada a la salut",wk:"la investigació clínica no et crida",pt:"investigador"},
+  "DOCÈNCIA / FORMACIÓ":{str:"tens vocació pedagògica: gaudeixes explicant i veient com altres aprenen",wk:"no et veus especialment ensenyant o formant altres persones",pt:"docent"},
+  "SEGURETAT – PROTECCIÓ – EMERGÈNCIES":{str:"et motiva protegir altres persones i et veus capaç d'actuar sota pressió",wk:"no et veus en feines de seguretat o urgències",pt:"protector"}
+};
+var PNARR={
+  "social+docent":"El teu perfil dibuixa una vocació molt clara cap a les persones, especialment cap al seu creixement i benestar. Tens combinats dos aspectes que solen anar units en els millors mestres i professionals de l'ajuda.",
+  "social+sanitari":"El teu perfil mostra una vocació molt clara per la cura de les persones: combines la voluntat d'ajudar amb un interès pel benestar físic dels altres.",
+  "social+comunicador":"Tens una orientació molt social, amb una capacitat afegida de comunicar-te amb facilitat.",
+  "social+creatiu":"Combines una clara orientació cap a les persones amb una vena creativa important.",
+  "docent+comunicador":"Tens un perfil molt orientat a la transmissió: t'agrada explicar i et sents còmode/a comunicant-te.",
+  "creatiu+digital":"Combines creativitat amb afinitat pel món digital. Encaixa amb disseny gràfic, audiovisual o art digital.",
+  "creatiu+emprenedor":"Tens una vena creativa i, alhora, iniciativa per portar les teves idees endavant.",
+  "analitic+digital":"Combines pensament analític amb afinitat pel món digital. Habitual en enginyeria, dades o ciberseguretat.",
+  "analitic+investigador":"Combines pensament analític amb interès per la investigació científica.",
+  "organitzador+emprenedor":"Combines organització amb iniciativa: pots planificar i també prendre la iniciativa quan cal.",
+  "tecnic+protector":"Combina la part pràctica i tècnica amb la vocació de protegir. Encaixa amb seguretat o emergències.",
+  "natura+social":"Combina sensibilitat mediambiental amb orientació a les persones."
+};
+
+function interp(r){
+  var s=r.sorted,t1=s[0],t2=s[1],t3=s[2],b1=s[s.length-1],b2=s[s.length-2];
+  var d1=DESC[t1.name],d2=DESC[t2.name],db1=DESC[b1.name],db2=DESC[b2.name];
+  var paras=[];
+  var k1=d1.pt+"+"+d2.pt,k2=d2.pt+"+"+d1.pt;
+  paras.push(PNARR[k1]||PNARR[k2]||("El teu perfil està liderat per "+t1.name.toLowerCase()+" i "+t2.name.toLowerCase()+". "+d1.str.charAt(0).toUpperCase()+d1.str.slice(1)+", i a més "+d2.str+"."));
+  var sp=t1.p>=75?("El teu àmbit més fort és "+t1.name.toLowerCase()+" ("+t1.p.toFixed(0)+"%)."):t1.p>=60?("El teu àmbit més afí és "+t1.name.toLowerCase()+" ("+t1.p.toFixed(0)+"%)."):("El que més s'acosta és "+t1.name.toLowerCase()+" ("+t1.p.toFixed(0)+"%).");
+  if(t3.z>0.3)sp+=" En tercer lloc apareix "+t3.name.toLowerCase()+".";
+  paras.push(sp);
+  var vl=s.filter(function(a){return a.z<-1;});
+  if(vl.length>=2)paras.push("Els àmbits més lluny dels teus interessos són "+b1.name.toLowerCase()+" i "+b2.name.toLowerCase()+". "+db1.wk.charAt(0).toUpperCase()+db1.wk.slice(1)+".");
+  else if(vl.length===1)paras.push("On menys et trobes és en "+b1.name.toLowerCase()+": "+db1.wk+".");
+  else paras.push("El teu perfil és bastant equilibrat. El que menys t'atreu és "+b1.name.toLowerCase()+".");
+  var high=[];
+  var am=[["les matèries lingüístiques",0],["les matemàtiques",1],["les llengües estrangeres",2],["les humanitats",3],["les matèries científiques",4],["les matèries tecnològiques",5],["les matèries artístiques",6],["les ciències socials",7]];
+  am.forEach(function(x){if((state.ansA[x[1]]||0)>=3)high.push(x[0]);});
+  if(high.length)paras.push(high.length===1?"Destaques clarament "+high[0]+".":high.length===2?"Preferència per "+high[0]+" i "+high[1]+".":"Afinitats amb "+high.slice(0,-1).join(", ")+" i "+high[high.length-1]+".");
+  var ab=s.filter(function(a){return a.z>0.3;}).length;
+  if(ab>=4)paras.push("En conjunt, tens un perfil ric — "+ab+" àmbits per sobre de la teva mitjana.");
+  else if(ab>=2)paras.push("Perfil amb direcció marcada. Aprofita-ho per investigar les vies que connecten amb els teus punts forts.");
+  else paras.push("El teu perfil té una orientació identificable. Parla amb el teu orientador/a per explorar opcions concretes.");
+  return paras.join("\n\n");
+}
+
+var CDB={
+  analitic:[{n:"Matemàtiques",t:["Grau","Universitari"],ic:"📐",d:"Estudies estructures i lògica.",pr:["Matemàtic/a","Analista de dades"]},
+    {n:"Física",t:["Grau","Universitari"],ic:"⚛️",d:"Entens com funciona l'univers.",pr:["Físic/a","Enginyer/a"]},
+    {n:"Estadística",t:["Grau","Universitari"],ic:"📊",d:"Analitzes dades per prendre decisions.",pr:["Estadístic/a","Científic/a de dades"]},
+    {n:"Enginyeria de Dades",t:["Grau","Universitari"],ic:"🗄️",d:"Disssenyes sistemes per processar dades.",pr:["Enginyer/a de dades"]}],
+  tecnic:[{n:"Enginyeria Mecànica",t:["Grau","Universitari"],ic:"⚙️",d:"Dissenyes màquines i sistemes.",pr:["Enginyer/a mecànic/a"]},
+    {n:"Mecatrònica Industrial",t:["FP","Grau Superior"],ic:"🤖",d:"Combines mecànica, electrònica i informàtica.",pr:["Tècnic/a de manteniment"]},
+    {n:"Manteniment Electromecànic",t:["FP","Grau Mitjà"],ic:"🔌",d:"Repares i mantens maquinària.",pr:["Tècnic/a electromecànic/a"]}],
+  creatiu:[{n:"Belles Arts",t:["Grau","Universitari"],ic:"🎨",d:"Explores l'expressió artística en totes les formes.",pr:["Artista visual","Il·lustrador/a"]},
+    {n:"Disseny Gràfic",t:["Grau","Universitari"],ic:"✏️",d:"Crees identitats visuals i productes gràfics.",pr:["Dissenyador/a gràfic/a","UX/UI"]},
+    {n:"Comunicació Audiovisual",t:["Grau","Universitari"],ic:"🎬",d:"Produceixes continguts per a cinema i xarxes.",pr:["Realitzador/a","Editor/a de vídeo"]},
+    {n:"Arquitectura",t:["Grau","Universitari"],ic:"🏛️",d:"Dissenyes edificis combinant art i tècnica.",pr:["Arquitecte/a"]}],
+  social:[{n:"Treball Social",t:["Grau","Universitari"],ic:"🤝",d:"Acompanyes persones en situació de vulnerabilitat.",pr:["Treballador/a social"]},
+    {n:"Educació Social",t:["Grau","Universitari"],ic:"👥",d:"Treballes amb col·lectius en risc d'exclusió.",pr:["Educador/a social"]},
+    {n:"Psicologia",t:["Grau","Universitari"],ic:"🧠",d:"Estudies la ment i el comportament humà.",pr:["Psicòleg/a clínic/a","Psicòleg/a d'empresa"]}],
+  comunicador:[{n:"Periodisme",t:["Grau","Universitari"],ic:"📰",d:"Investigues i expliques la realitat.",pr:["Periodista","Community manager"]},
+    {n:"Publicitat i RRPP",t:["Grau","Universitari"],ic:"📣",d:"Crees campanyes per comunicar marques.",pr:["Publicitari/a"]},
+    {n:"Traducció i Interpretació",t:["Grau","Universitari"],ic:"🌐",d:"Fas de pont entre idiomes i cultures.",pr:["Traductor/a","Intèrpret"]}],
+  organitzador:[{n:"ADE",t:["Grau","Universitari"],ic:"📋",d:"Administres i dirigeixes organitzacions.",pr:["Director/a","Consultor/a"]},
+    {n:"Gestió de Projectes",t:["Grau","Universitari"],ic:"🗓️",d:"Planifiques i coordines projectes complexos.",pr:["Project manager","Scrum master"]},
+    {n:"Administració i Finances",t:["FP","Grau Superior"],ic:"💰",d:"Gestioneixes comptabilitat i finances.",pr:["Administratiu/va"]}],
+  natura:[{n:"Ciències Ambientals",t:["Grau","Universitari"],ic:"🌿",d:"Estudies els ecosistemes i proposes solucions.",pr:["Ambientòleg/a"]},
+    {n:"Biologia",t:["Grau","Universitari"],ic:"🔬",d:"Explores la vida en totes les seves formes.",pr:["Biòleg/a"]},
+    {n:"Veterinària",t:["Grau","Universitari"],ic:"🐾",d:"Cuides la salut d'animals.",pr:["Veterinari/a"]}],
+  digital:[{n:"Enginyeria Informàtica",t:["Grau","Universitari"],ic:"💻",d:"Desenvolopes software i solucions tecnològiques.",pr:["Desenvolupador/a","Enginyer/a de software"]},
+    {n:"Desenvolupament d'Apps",t:["FP","Grau Superior"],ic:"📱",d:"Programes aplicacions mòbils i web.",pr:["Programador/a web"]},
+    {n:"Ciberseguretat",t:["FP","Especialització"],ic:"🔐",d:"Protegeixes sistemes d'atacs informàtics.",pr:["Analista de ciberseguretat","Hacker ètic/a"]}],
+  emprenedor:[{n:"ADE",t:["Grau","Universitari"],ic:"🚀",d:"Base ideal per muntar el teu propi negoci.",pr:["Emprenedor/a"]},
+    {n:"Empresa i Tecnologia",t:["Grau","Universitari"],ic:"💡",d:"Combines gestió empresarial amb tecnologia.",pr:["Product manager","CTO"]}],
+  sanitari:[{n:"Infermeria",t:["Grau","Universitari"],ic:"💉",d:"Cuides pacients en hospitals i centres de salut.",pr:["Infermer/a"]},
+    {n:"Fisioteràpia",t:["Grau","Universitari"],ic:"🦴",d:"Recuperes la mobilitat de pacients amb lesions.",pr:["Fisioterapeuta"]},
+    {n:"Medicina",t:["Grau","Universitari"],ic:"🩺",d:"Diagnostiques i tractes malalties.",pr:["Metge/essa","Especialista"]}],
+  investigador:[{n:"Biotecnologia",t:["Grau","Universitari"],ic:"🧬",d:"Apliques la biologia per desenvolupar medicaments.",pr:["Biotecnòleg/a"]},
+    {n:"Farmàcia",t:["Grau","Universitari"],ic:"💊",d:"Estudies els medicaments i com actuen.",pr:["Farmacèutic/a"]},
+    {n:"Bioquímica",t:["Grau","Universitari"],ic:"⚗️",d:"Estudies els processos químics dels éssers vius.",pr:["Bioquímic/a"]}],
+  docent:[{n:"Magisteri Ed. Primària",t:["Grau","Universitari"],ic:"🏫",d:"Ensenyes nens i nenes de 6 a 12 anys.",pr:["Mestre/a de primària"]},
+    {n:"Pedagogia",t:["Grau","Universitari"],ic:"📚",d:"Dissenyes processos d'aprenentatge per a qualsevol edat.",pr:["Pedagog/a","Orientador/a"]},
+    {n:"Logopèdia",t:["Grau","Universitari"],ic:"🗣️",d:"Tractes trastorns de la parla i el llenguatge.",pr:["Logopeda"]}],
+  protector:[{n:"Criminologia",t:["Grau","Universitari"],ic:"🔍",d:"Estudies el crim i els sistemes de justícia.",pr:["Criminòleg/a"]},
+    {n:"Emergències i Protecció Civil",t:["FP","Grau Superior"],ic:"🚒",d:"Actues en situacions d'emergència.",pr:["Tècnic/a d'emergències"]},
+    {n:"Cossos de seguretat",t:["Oposicions"],ic:"👮",d:"Policia Nacional, Guàrdia Civil o Policia Local.",pr:["Policia"]}]
+};
+
+function getCareers(r){
+  var top3=r.sorted.slice(0,3),mp={};
+  top3.forEach(function(a,i){
+    var pt=DESC[a.name].pt,cars=CDB[pt]||[];
+    cars.forEach(function(c){if(!mp[c.n])mp[c.n]={n:c.n,t:c.t,ic:c.ic,d:c.d,pr:c.pr,sc:0};mp[c.n].sc+=i===0?3:i===1?2:1;});
+  });
+  return Object.values(mp).sort(function(a,b){return b.sc-a.sc;}).slice(0,8);
+}
+
+var REC=[
+  {nm:"Simulador de notes",ic:"🧮",cl:"#7C3AED",bg:"#EDE9FE",tc:"#4C1D95",ds:"Calcula la teva nota d'accés amb les teves qualificacions.",url:"https://docs.google.com/spreadsheets/d/12j2adyOKgbYEP9_3-8whlmnRhrLFcU3u/edit?usp=share_link"},
+  {nm:"Ponderacions UIB",ic:"⚖️",cl:"#0F6E56",bg:"#D1FAE5",tc:"#064E3B",ds:"Quines assignatures ponderen per a cada grau de la UIB.",url:"https://estudis.uib.es/estudis-de-grau/Com-hi-pots-accedir/acces/parametres/"},
+  {nm:"Notes de tall UIB",ic:"📊",cl:"#185FA5",bg:"#E0F2FE",tc:"#0C4A6E",ds:"Notes de tall dels darrers anys per a tots els graus de la UIB.",url:"https://estudis.uib.es/estudis-de-grau/Com-hi-pots-accedir/Admissio/notes-de-tall"},
+  {nm:"FP CAIB per família",ic:"🔧",cl:"#B45309",bg:"#FEF3C7",tc:"#78350F",ds:"Cercador oficial de cicles formatius a les Illes Balears.",url:"https://www.caib.es/sites/fp/ca/per_familia_professional/"},
+  {nm:"Notes de tall FP",ic:"📋",cl:"#B91C1C",bg:"#FEE2E2",tc:"#7F1D1D",ds:"Notes de tall dels cicles formatius de grau superior.",url:"https://www.caib.es/sites/comunitatdocent/ca/notes_de_tall_fp/"},
+  {nm:"Orientació IES Sineu",ic:"🏫",cl:"#6D28D9",bg:"#EDE9FE",tc:"#4C1D95",ds:"Recursos d'orientació acadèmica de l'IES Sineu.",url:"https://redols.caib.es/c07008481/5-serveis-i-programes/5-14-orientacio-academica/"},
+  {nm:"QEDU",ic:"🎓",cl:"#0369A1",bg:"#E0F2FE",tc:"#0C4A6E",ds:"Tota l'oferta universitària oficial d'Espanya.",url:"https://www.ciencia.gob.es/qedu.html"},
+  {nm:"Ponderacions Catalunya",ic:"⚖️",cl:"#0F6E56",bg:"#D1FAE5",tc:"#064E3B",ds:"Ponderacions per als graus de les universitats catalanes (2026).",url:"https://universitats.gencat.cat/web/.content/02_preinscripcio/enllac-documents/Ponderacions-2026_v6.pdf"},
+  {nm:"Ponderacions Andalusia",ic:"⚖️",cl:"#C2410C",bg:"#FFEDD5",tc:"#7C2D12",ds:"Paràmetres de ponderació per als graus d'Andalusia.",url:"https://www.juntadeandalucia.es/economiaconocimientoempresasyuniversidad/sguit/?q=grados&d=g_b_parametros_prox_top.php"},
+  {nm:"Estudis de grau UIB",ic:"📚",cl:"#6D28D9",bg:"#EDE9FE",tc:"#4C1D95",ds:"Catàleg complet dels graus de la UIB.",url:"https://estudis.uib.es/estudis-de-grau/grau/"}
+];
+var CONSELLS={analitic:"El teu perfil analític encaixa molt bé amb graus científics o d'enginyeria. Pregunta a la UIB per Matemàtiques, Física o Enginyeria Informàtica.",tecnic:"Explora els cicles de FP d'Electricitat, Mecànica o Fabricació. Molts tenen sortida laboral directa a Balears.",creatiu:"Visita l'Escola d'Art i Superior de Disseny de Palma — és el centre de referència per a perfils creatius a les illes.",social:"La UIB ofereix Treball Social, Educació Social i Psicologia. Les jornades de portes obertes et donaran una bona visió.",comunicador:"Periodisme i Publicitat s'estudien fora de les illes, però la UIB té Comunicació Audiovisual.",organitzador:"ADE i Gestió de Projectes tenen bona demanda a Balears pel sector turístic.",natura:"Ciències Ambientals a la UIB és molt sòlida. Balears té un context ideal per treballar en sostenibilitat.",digital:"El sector tecnològic a Balears creix molt. Mira els cicles de DAM, DAW i Ciberseguretat.",emprenedor:"ADE i Empresa i Tecnologia t'obriran portes. Consulta els programes de joves emprenedors de la CAIB.",sanitari:"Infermeria i Fisioteràpia s'estudien a la UIB. Per a Medicina cal anar a la península.",investigador:"Biotecnologia, Bioquímica i Farmàcia requereixen anar a la península. La UIB té Biologia.",docent:"Magisteri s'estudia a la UIB. Per a Secundària hauràs de fer el Màster de Professorat.",protector:"Bombers i Policia requereixen oposicions. Criminologia s'estudia a la UIB."};
+
+// SVGs
+var SV_NAV='<svg width="22" height="22" viewBox="0 0 22 22" fill="none"><circle cx="11" cy="11" r="9" fill="#EDE9FE" stroke="#7C3AED" stroke-width="1.5"/><path d="M6 14 Q11 5 16 14" stroke="#7C3AED" stroke-width="2" stroke-linecap="round" fill="none"/><circle cx="11" cy="7" r="1.5" fill="#7C3AED"/></svg>';
+var SV_SB='<svg width="28" height="28" viewBox="0 0 28 28" fill="none"><circle cx="14" cy="14" r="12" fill="#EDE9FE" stroke="#7C3AED" stroke-width="1.5"/><path d="M9 18 Q14 8 19 18" stroke="#7C3AED" stroke-width="2" stroke-linecap="round" fill="none"/><circle cx="14" cy="10" r="2" fill="#7C3AED"/></svg>';
+var SV_LOAD='<svg width="180" height="140" viewBox="0 0 180 140" fill="none"><rect x="30" y="16" width="52" height="64" rx="9" fill="#EDE9FE" stroke="#7C3AED" stroke-width="2"/><rect x="40" y="28" width="32" height="5" rx="2.5" fill="#7C3AED" opacity=".4"/><rect x="40" y="38" width="24" height="4" rx="2" fill="#7C3AED" opacity=".25"/><rect x="40" y="47" width="28" height="4" rx="2" fill="#7C3AED" opacity=".2"/><circle cx="56" cy="12" r="7" fill="#fff" stroke="#7C3AED" stroke-width="1.8"/><path d="M52.5 12l2.5 2.5 4.5-4.5" stroke="#7C3AED" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><rect x="98" y="16" width="52" height="64" rx="9" fill="#FCE7F3" stroke="#EC4899" stroke-width="2"/><circle cx="124" cy="38" r="12" fill="#EC4899" opacity=".15"/><circle cx="124" cy="34" r="5" fill="#EC4899" opacity=".5"/><rect x="24" y="96" width="132" height="36" rx="8" fill="#D1FAE5" stroke="#10B981" stroke-width="2"/><path d="M38 118 L50 106 L62 114 L78 100 L94 110 L110 96 L126 106 L140 96" stroke="#10B981" stroke-width="2.2" stroke-linecap="round" fill="none"/></svg>';
+var SV_RES='<svg width="180" height="120" viewBox="0 0 180 120" fill="none"><rect x="8" y="60" width="24" height="54" rx="4" fill="#EDE9FE" stroke="#7C3AED" stroke-width="1.5"/><rect x="40" y="40" width="24" height="74" rx="4" fill="#FCE7F3" stroke="#EC4899" stroke-width="1.5"/><rect x="72" y="16" width="24" height="98" rx="4" fill="#D1FAE5" stroke="#10B981" stroke-width="1.5"/><rect x="104" y="34" width="24" height="80" rx="4" fill="#FEF3C7" stroke="#F59E0B" stroke-width="1.5"/><rect x="136" y="50" width="24" height="64" rx="4" fill="#E0F2FE" stroke="#0EA5E9" stroke-width="1.5"/><circle cx="84" cy="13" r="6" fill="#fff" stroke="#10B981" stroke-width="1.8"/><path d="M81 13l2 2 3.5-3.5" stroke="#10B981" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+var SBICONS=[
+  '<svg width="18" height="18" viewBox="0 0 18 18" fill="none"><ellipse cx="9" cy="8.5" rx="5" ry="5.5" fill="none" stroke="currentColor" stroke-width="1.5"/><circle cx="9" cy="5.5" r="1.5" fill="currentColor"/><path d="M9 14L9 16" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>',
+  '<svg width="18" height="18" viewBox="0 0 18 18" fill="none"><circle cx="6.5" cy="7" r="2.8" fill="none" stroke="currentColor" stroke-width="1.4"/><circle cx="11.5" cy="7" r="2.8" fill="none" stroke="currentColor" stroke-width="1.4"/><circle cx="9" cy="12" r="2.8" fill="none" stroke="currentColor" stroke-width="1.4"/></svg>',
+  '<svg width="18" height="18" viewBox="0 0 18 18" fill="none"><circle cx="9" cy="9" r="5" fill="none" stroke="currentColor" stroke-width="1.4"/><ellipse cx="9" cy="9" rx="2" ry="5" fill="none" stroke="currentColor" stroke-width="1.1" opacity=".6"/><path d="M4 9L14 9" stroke="currentColor" stroke-width="1.1" opacity=".6"/></svg>',
+  '<svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M9 15.5C9 15.5 3 11.5 3 7.5C3 5.3 4.8 3.5 7 3.5C8 3.5 8.7 4 9 4.8C9.3 4 10 3.5 11 3.5C13.2 3.5 15 5.3 15 7.5C15 11.5 9 15.5 9 15.5Z" fill="none" stroke="currentColor" stroke-width="1.5"/></svg>',
+  '<svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M4 4.5L9 6.5L14 4.5L14 12.5L9 14.5L4 12.5Z" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/><path d="M9 6.5L9 14.5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>',
+  '<svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M9 3L15 5.5L15 10.5C15 13.5 12 15.5 9 16.5C6 15.5 3 13.5 3 10.5L3 5.5Z" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/><path d="M6.5 10L8.2 12L12 8" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+  '<svg width="18" height="18" viewBox="0 0 18 18" fill="none"><rect x="3" y="4" width="12" height="9" rx="2" fill="none" stroke="currentColor" stroke-width="1.4"/><path d="M6 15L12 15" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><path d="M9 13L9 15" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>'
+];
+var SHICONS=[
+  '<svg width="44" height="44" viewBox="0 0 44 44" fill="none"><circle cx="22" cy="22" r="20" fill="rgba(255,255,255,0.25)"/><ellipse cx="22" cy="21" rx="9" ry="10" fill="none" stroke="white" stroke-width="1.8"/><path d="M13 21Q16 16 22 18Q28 16 31 21" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round"/><circle cx="22" cy="14" r="2.5" fill="white" opacity=".7"/><path d="M22 31L22 34" stroke="white" stroke-width="1.5" stroke-linecap="round"/></svg>',
+  '<svg width="44" height="44" viewBox="0 0 44 44" fill="none"><circle cx="22" cy="22" r="20" fill="rgba(255,255,255,0.25)"/><circle cx="15" cy="18" r="5" fill="white" opacity=".6"/><circle cx="29" cy="18" r="5" fill="white" opacity=".6"/><circle cx="22" cy="28" r="5" fill="white" opacity=".9"/><path d="M15 23Q15 28 18 29" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round"/><path d="M29 23Q29 28 26 29" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg>',
+  '<svg width="44" height="44" viewBox="0 0 44 44" fill="none"><circle cx="22" cy="22" r="20" fill="rgba(255,255,255,0.25)"/><circle cx="22" cy="22" r="10" fill="none" stroke="white" stroke-width="1.8"/><ellipse cx="22" cy="22" rx="4" ry="10" fill="none" stroke="white" stroke-width="1.2" opacity=".6"/><path d="M12 22L32 22" stroke="white" stroke-width="1.2" opacity=".6"/></svg>',
+  '<svg width="44" height="44" viewBox="0 0 44 44" fill="none"><circle cx="22" cy="22" r="20" fill="rgba(255,255,255,0.25)"/><path d="M22 32C22 32 12 25 12 18C12 14.7 14.7 12 18 12C20 12 21.5 13 22 14.5C22.5 13 24 12 26 12C29.3 12 32 14.7 32 18C32 25 22 32 22 32Z" fill="white" opacity=".8"/></svg>',
+  '<svg width="44" height="44" viewBox="0 0 44 44" fill="none"><circle cx="22" cy="22" r="20" fill="rgba(255,255,255,0.25)"/><path d="M12 14L22 18L32 14L32 30L22 34L12 30Z" fill="none" stroke="white" stroke-width="1.8" stroke-linejoin="round"/><path d="M22 18L22 34" stroke="white" stroke-width="1.5" stroke-linecap="round"/></svg>',
+  '<svg width="44" height="44" viewBox="0 0 44 44" fill="none"><circle cx="22" cy="22" r="20" fill="rgba(255,255,255,0.25)"/><path d="M22 11L32 15L32 23C32 28 27 32 22 34C17 32 12 28 12 23L12 15Z" fill="none" stroke="white" stroke-width="1.8" stroke-linejoin="round"/><path d="M17 22L20.5 26L28 18" stroke="white" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+  '<svg width="44" height="44" viewBox="0 0 44 44" fill="none"><circle cx="22" cy="22" r="20" fill="rgba(255,255,255,0.25)"/><rect x="12" y="14" width="20" height="14" rx="3" fill="none" stroke="white" stroke-width="1.8"/><path d="M18 32L26 32" stroke="white" stroke-width="2" stroke-linecap="round"/><path d="M22 28L22 32" stroke="white" stroke-width="1.8" stroke-linecap="round"/></svg>'
+];
+var SV_INTRO='<svg width="260" height="190" viewBox="0 0 260 190" fill="none"><rect x="80" y="55" width="96" height="86" rx="12" fill="#EDE9FE" stroke="#7C3AED" stroke-width="2"/><rect x="92" y="68" width="72" height="8" rx="4" fill="#7C3AED" opacity=".35"/><rect x="92" y="82" width="56" height="5" rx="2.5" fill="#7C3AED" opacity=".2"/><rect x="92" y="93" width="64" height="5" rx="2.5" fill="#7C3AED" opacity=".2"/><rect x="92" y="104" width="48" height="5" rx="2.5" fill="#7C3AED" opacity=".15"/><circle cx="128" cy="53" r="12" fill="#fff" stroke="#7C3AED" stroke-width="2"/><path d="M123 53l3.5 3.5 6-6" stroke="#7C3AED" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><rect x="10" y="28" width="58" height="68" rx="10" fill="#FCE7F3" stroke="#EC4899" stroke-width="2"/><circle cx="39" cy="50" r="12" fill="#EC4899" opacity=".18"/><circle cx="39" cy="46" r="5" fill="#EC4899" opacity=".5"/><path d="M30 60Q39 54 48 60" stroke="#EC4899" stroke-width="2" stroke-linecap="round" fill="none"/><rect x="18" y="72" width="42" height="4" rx="2" fill="#EC4899" opacity=".3"/><rect x="192" y="28" width="58" height="68" rx="10" fill="#D1FAE5" stroke="#10B981" stroke-width="2"/><path d="M206 62L212 56L218 62L224 50L230 58L236 52L242 58" stroke="#10B981" stroke-width="2" stroke-linecap="round" fill="none"/><circle cx="206" cy="62" r="3" fill="#10B981"/><circle cx="242" cy="58" r="3" fill="#10B981"/><rect x="10" y="112" width="58" height="62" rx="10" fill="#FEF3C7" stroke="#F59E0B" stroke-width="2"/><circle cx="39" cy="136" r="14" fill="none" stroke="#F59E0B" stroke-width="2"/><path d="M39 122v4M39 150v4M25 136h4M50 136h4" stroke="#F59E0B" stroke-width="1.8" stroke-linecap="round"/><circle cx="39" cy="136" r="4" fill="#F59E0B" opacity=".4"/><rect x="192" y="112" width="58" height="62" rx="10" fill="#E0F2FE" stroke="#0EA5E9" stroke-width="2"/><rect x="204" y="124" width="20" height="20" rx="4" fill="#0EA5E9" opacity=".18" stroke="#0EA5E9" stroke-width="1.5"/><path d="M210 134l3 3 5-5" stroke="#0EA5E9" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><rect x="230" y="128" width="14" height="4" rx="2" fill="#0EA5E9" opacity=".4"/><rect x="204" y="152" width="40" height="4" rx="2" fill="#0EA5E9" opacity=".3"/><path d="M68 62L78 74" stroke="#7C3AED" stroke-width="1.5" stroke-dasharray="3 2" stroke-linecap="round"/><path d="M192 62L182 74" stroke="#10B981" stroke-width="1.5" stroke-dasharray="3 2" stroke-linecap="round"/><path d="M68 140L78 132" stroke="#F59E0B" stroke-width="1.5" stroke-dasharray="3 2" stroke-linecap="round"/><path d="M192 140L182 132" stroke="#0EA5E9" stroke-width="1.5" stroke-dasharray="3 2" stroke-linecap="round"/></svg>';
+
+function render(){
+  var root=document.getElementById("app-root");
+  var nav='<nav class="nav-bar"><div class="nav-logo">'+SV_NAV+' Orientació</div><div class="nav-spacer"></div>'
+    +'<button class="nav-btn'+(view==="alumne"?" active":"")+'" onclick="sw(\'alumne\')">Alumne</button>'
+    +'<button class="nav-btn'+(view==="orientador"?" active":"")+'" onclick="sw(\'orientador\')">Orientador</button></nav>';
+  if(view==="orientador"){
+    root.innerHTML=nav+'<div style="text-align:center;padding:40px;color:var(--muted);font-weight:700;">Carregant...</div>';
+    doOrientador(root,nav);return;
+  }
+  var vc=document.createElement("div");vc.id="vc";
+  root.innerHTML=nav;root.appendChild(vc);
+  if(state.step==="intro")doIntro(vc);
+  else if(state.step==="quiz")doQuiz(vc);
+  else if(state.step==="loading")doLoad(vc);
+  else if(state.step==="results")doResults(vc);
+}
+
+function sw(v){
+  if(v==="orientador"&&!auth){showPwd();return;}
+  view=v;render();window.scrollTo(0,0);
+}
+
+function showPwd(){
+  var o=document.createElement("div");o.className="modal-overlay";o.id="pw-modal";
+  o.innerHTML='<div class="modal-box" style="max-width:380px;text-align:center;">'
+    +'<div style="font-size:48px;margin-bottom:12px;">🔐</div>'
+    +'<div style="font-size:18px;font-weight:800;margin-bottom:6px;">Accés orientador/a</div>'
+    +'<div style="font-size:13px;color:var(--muted);margin-bottom:20px;">Introdueix la contrasenya per accedir.</div>'
+    +'<input type="password" id="pwi" class="pwd-input" placeholder="Contrasenya">'
+    +'<div id="pwe" style="display:none;color:#EF4444;font-size:13px;font-weight:700;margin-bottom:8px;">Contrasenya incorrecta</div>'
+    +'<button onclick="chkPwd()" style="width:100%;padding:14px;background:var(--c1);color:#fff;border:none;border-radius:var(--r);font-size:15px;font-weight:800;font-family:inherit;cursor:pointer;margin-bottom:8px;">Entrar</button>'
+    +'<button onclick="document.getElementById(\'pw-modal\').remove()" style="width:100%;padding:12px;background:transparent;color:var(--muted);border:2px solid var(--bdr);border-radius:var(--r);font-size:14px;font-weight:700;font-family:inherit;cursor:pointer;">Cancel·lar</button>'
+    +'</div>';
+  o.addEventListener("click",function(ev){if(ev.target===o)o.remove();});
+  document.body.appendChild(o);
+  var pi=document.getElementById("pwi");
+  if(pi){pi.focus();pi.addEventListener("keydown",function(ev){if(ev.key==="Enter")chkPwd();});}
+}
+function chkPwd(){
+  var pi=document.getElementById("pwi"),pe=document.getElementById("pwe");
+  if(!pi)return;
+  if(pi.value===PWD){auth=true;var m=document.getElementById("pw-modal");if(m)m.remove();view="orientador";render();window.scrollTo(0,0);}
+  else{if(pe)pe.style.display="block";pi.value="";pi.style.borderColor="#EF4444";pi.focus();setTimeout(function(){pi.style.borderColor="";},1500);}
+}
+
+async function doOrientador(root,nav){
+  _cache=null;
+  var al=await getAl();
+  root.innerHTML=nav;
+  var w=document.createElement("div");w.className="orient-wrap";
+  var stat='<div class="orient-stat"><div class="ov">'+al.length+'</div><div class="ol">Alumnes</div></div>';
+  var body;
+  if(al.length===0){
+    body='<div class="orient-empty"><p>Encara no hi ha cap alumne</p><br><small>Quan un alumne acabi el qüestionari, apareixerà aquí des de qualsevol dispositiu.</small></div>';
+  } else {
+    body='<div class="alumnes-list">'+al.map(function(a){
+      var i1=AMB.indexOf(a.top1),i2=AMB.indexOf(a.top2);
+      var c1=AMBCOL[i1]||"#7C3AED",b1=AMBBG[i1]||"#EDE9FE";
+      var c2=AMBCOL[i2]||"#64748b",b2=AMBBG[i2]||"#f1f5f9";
+      return '<div class="alumne-row" onclick="openAl(\''+a.id+'\')">'
+        +'<div class="alumne-avatar" style="background:'+avCol(a.nom)+'">'+ini(a.nom)+'</div>'
+        +'<div class="alumne-info">'
+        +'<div class="alumne-nom">'+e(a.nom||"Alumne sense nom")+'</div>'
+        +'<div class="alumne-data">'+e(a.data)+'</div>'
+        +'<div class="alumne-top">'
+        +'<span class="alumne-tag" style="background:'+b1+';color:'+c1+'">'+e(a.top1)+'</span>'
+        +'<span class="alumne-tag" style="background:'+b2+';color:'+c2+'">'+e(a.top2)+'</span>'
+        +'</div></div>'
+        +'<div class="alumne-pct">'+a.pct1+'%</div>'
+        +'<button class="orient-btn-del" onclick="event.stopPropagation();rmAl(\''+a.id+'\')">✕</button>'
+        +'<span class="alumne-chevron">›</span>'
+        +'</div>';
+    }).join("")+'</div>';
+  }
+  w.innerHTML='<div class="orient-hero"><h2>Vista de l\'orientador/a</h2><p>Tots els perfils dels alumnes que han completat el qüestionari — des de qualsevol dispositiu.</p>'+stat+'</div>'+body;
+  root.appendChild(w);
+}
+
+function openAl(id){
+  getAl().then(function(al){
+    var a=al.find(function(x){return x.id===id;});if(!a)return;
+    // Reconstruïm un state temporal amb les dades de l'alumne
+    var tmpState={nom:a.nom,res:a.results,interp:a.interpretation,careers:getCareers(a.results),ansA:a.ansA||new Array(ASS.length).fill(0)};
+    var html=buildResultsHtml(tmpState);
+    var o=document.createElement("div");o.className="modal-overlay";
+    o.innerHTML='<div class="modal-box" style="max-width:760px;">'
+      +'<button class="modal-close" onclick="this.closest(\'.modal-overlay\').remove()">✕</button>'
+      +html
+      +'</div>';
+    o.addEventListener("click",function(ev){if(ev.target===o)o.remove();});
+    document.body.appendChild(o);
+    setTimeout(function(){o.querySelectorAll(".bar-fill").forEach(function(el){var w=el.style.width;el.style.width="0";requestAnimationFrame(function(){setTimeout(function(){el.style.width=w;},60);});});},120);
+  });
+}
+
+function rmAl(id){if(!confirm("Eliminar aquest alumne?"))return;delAl(id).then(function(){_cache=null;render();});}
+
+function sAns(sec){return sec.isA?state.ansA.filter(function(a){return a!==null;}).length:state.ans.slice(sec.s,sec.e).filter(function(a){return a!==null;}).length;}
+function sTot(sec){return sec.isA?ASS.length:sec.e-sec.s;}
+
+function doIntro(root){
+  var html='<div class="intro-wrap">'
+    +'<div class="intro-hero">'+SV_INTRO+'<h1>Qüestionari d\'orientació acadèmica i professional</h1><p>Respon 135 preguntes i descobreix quins àmbits encaixen amb tu</p></div>'
+    +'<div class="intro-how">'
+    +'<div class="ih-step"><div class="ih-num" style="background:#EDE9FE;color:#7C3AED">1</div><div class="ih-text"><strong>Llegeix</strong> cada afirmació</div></div>'
+    +'<div class="ih-arrow">&#8594;</div>'
+    +'<div class="ih-step"><div class="ih-num" style="background:#FCE7F3;color:#EC4899">2</div><div class="ih-text"><strong>Valora</strong> del 0 al 4</div></div>'
+    +'<div class="ih-arrow">&#8594;</div>'
+    +'<div class="ih-step"><div class="ih-num" style="background:#D1FAE5;color:#10B981">3</div><div class="ih-text"><strong>Obté</strong> el teu perfil</div></div>'
+    +'</div>'
+    +'<div class="card"><div style="display:flex;align-items:center;gap:10px;margin-bottom:14px"><div style="width:36px;height:36px;border-radius:50%;background:#EDE9FE;border:2px solid #7C3AED;display:flex;align-items:center;justify-content:center;color:#7C3AED">'+SBICONS[0]+'</div><div><div style="font-size:14px;font-weight:800;">Com et dius?</div><div style="font-size:12px;color:var(--muted);">Apareixerà als resultats finals</div></div></div>'
+    +'<div class="name-wrap"><span class="ni">&#9999;</span><input type="text" class="name-input" id="ni" placeholder="Escriu el teu nom (opcional)" value="'+e(state.nom)+'"></div></div>'
+    +'<div class="intro-stats"><div class="is-item"><span class="is-val">135</span><span class="is-lbl">preguntes</span></div><div class="is-sep"></div><div class="is-item"><span class="is-val">13</span><span class="is-lbl">àmbits</span></div><div class="is-sep"></div><div class="is-item"><span class="is-val">~20\'</span><span class="is-lbl">durada</span></div></div>'
+    +'<button class="btn-start" onclick="startQ()">Començar el qüestionari &#8594;</button>'
+    +(hasInc()?'<button class="btn-ghost" onclick="resumeQ()">&#8617; Continuar el que tenia pendent</button>':"")
+    +'</div>';
+  root.innerHTML=html;
+}
+
+function doQuiz(root){
+  var tot=Q.length+ASS.length;
+  var ai=state.ans.filter(function(a){return a!==null;}).length;
+  var aa=state.ansA.filter(function(a){return a!==null;}).length;
+  var ans=ai+aa,pct=Math.round((ans/tot)*100),done=ans===tot;
+  var sb=SECS.map(function(sec,si){
+    var a=sAns(sec),t=sTot(sec),p=Math.round((a/t)*100),fl=a===t;
+    return '<div class="sb-section"><div class="sb-head" onclick="scrollToS('+si+')">'
+      +'<div class="sb-icon" style="background:'+sec.b+';color:'+sec.c+'">'+SBICONS[sec.i]+'</div>'
+      +'<span class="sb-name" style="'+(fl?"color:"+sec.c:"")+'">'+(sec.t)+'</span>'
+      +'<span class="sb-pct" style="color:'+sec.c+'">'+p+'%</span></div>'
+      +'<div class="sb-bar"><div class="sb-fill" id="sbf'+si+'" style="width:'+p+'%;background:'+sec.c+'"></div></div></div>';
+  }).join("");
+  var qh="";
+  SECS.forEach(function(sec,si){
+    qh+='<div id="sb'+si+'" class="sec-block"><div class="sec-header" style="background:'+sec.c+'"><div class="sec-header-inner"><span>'+SHICONS[sec.i]+'</span><span>'+sec.t+'</span><span class="sh-count" id="shc'+si+'">'+sAns(sec)+"/"+sTot(sec)+'</span></div></div>';
+    if(sec.isA){qh+='<p style="font-size:13px;color:var(--muted);margin:0 0 10px 2px;">Valora de 0 a 4 el teu interès per cada bloc.</p>';for(var i=0;i<ASS.length;i++)qh+=qCard(i,state.ansA[i],"a",sec);}
+    else{for(var i=sec.s;i<sec.e;i++)qh+=qCard(i,state.ans[i],"q",sec);}
+    qh+="</div>";
+  });
+  root.innerHTML='<div class="quiz-layout">'
+    +'<div class="sidebar"><div class="sb-logo">'+SV_SB+'<div class="sb-logo-text">Orientació<br>acadèmica</div></div>'+sb+'</div>'
+    +'<div class="quiz-main">'
+    +'<div class="top-bar"><span class="tb-pct" id="tbp">'+pct+'%</span><div class="tb-track"><div class="tb-fill" id="tbf" style="width:'+pct+'%"></div></div><span class="tb-label" id="tbl">'+ans+"/"+tot+' respostes</span></div>'
+    +qh
+    +'<button class="btn-submit" id="sub" '+(done?"":"disabled")+' onclick="doSubmit()">'+(done?"Veure el meu perfil &#8594;":"Falten "+(tot-ans)+" preguntes")+'</button>'
+    +'<button class="btn-reset" onclick="if(confirm(\'Segur que vols reiniciar?\')){clr();state.step=\'intro\';render();}">&#8617; Reiniciar</button>'
+    +'</div></div>';
+}
+
+function qCard(idx,val,kind,sec){
+  var txt=kind==="q"?Q[idx]:ASS[idx];
+  var num=kind==="q"?idx+1:Q.length+idx+1;
+  var ans=val!==null&&val!==undefined;
+  var btns=LBL.map(function(l,v){return'<button class="sbtn v'+v+(val===v?" selected":"")+'" onclick="setA(\''+kind+'\','+idx+','+v+')"><span class="sn">'+v+'</span><span class="sl">'+l+'</span></button>';}).join("");
+  return '<div class="q-card" id="qc'+kind+idx+'" style="'+(ans?"border-color:"+sec.c+"33;background:"+sec.b+"55":"")+'">'
+    +'<div class="q-num" style="color:'+sec.c+'99">Pregunta '+num+'</div>'
+    +'<p class="q-text">'+e(txt)+'</p>'
+    +'<div class="scale">'+btns+'</div></div>';
+}
+
+function doLoad(root){
+  root.innerHTML='<div class="loading-wrap">'+SV_LOAD
+    +'<div class="load-title" id="lt">Analitzant les teves respostes...</div>'
+    +'<div class="load-sub" id="ls">Processant 135 preguntes</div>'
+    +'<div class="load-bar"><div class="load-fill"></div></div>'
+    +'<div class="load-dots"><span></span><span></span><span></span></div></div>';
+}
+
+function buildResultsHtml(st){
+  var r=st.res,sorted=r.sorted,top3=sorted.slice(0,3),above=sorted.filter(function(a){return a.z>0.3;}).length;
+  var today=new Date().toLocaleDateString("ca-ES",{day:"numeric",month:"long",year:"numeric"});
+  var sl=st.nom?e(st.nom)+" · "+today:today;
+  var top3h=top3.map(function(a,i){return'<div class="top-card tc-'+(i+1)+'"><div class="tc-medal">'+["🥇","🥈","🥉"][i]+'</div><div class="tc-rank">'+["1r lloc","2n lloc","3r lloc"][i]+'</div><div class="tc-name">'+e(a.name)+'</div><div class="tc-pct">'+a.p.toFixed(1)+'%</div><div class="tc-z">Z='+a.z.toFixed(2)+'</div></div>';}).join("");
+  var carh="";
+  if(st.careers&&st.careers.length){
+    carh='<div class="sec-title">Vies professionals que podrien encaixar</div><div class="sec-desc">Fes clic per veure en què consisteix cada una.</div><div class="careers-grid">';
+    carh+=st.careers.map(function(c){return'<div class="career-card" onclick="togC(this)"><div class="cc-header"><span class="cc-icon">'+c.ic+'</span><div class="cc-name">'+e(c.n)+'</div></div><div>'+c.t.map(function(t){return'<span class="ct">'+e(t)+'</span>';}).join("")+'</div><div class="cc-desc-panel"><p class="cc-desc-text">'+e(c.d)+'</p><div class="cc-profs-title">Professions:</div><div class="cc-profs">'+c.pr.map(function(p){return'<span class="cc-prof">'+e(p)+'</span>';}).join("")+'</div></div></div>';}).join("")+'</div>';
+  }
+  var recH=REC.map(function(rc){return'<a href="'+rc.url+'" target="_blank" class="pp-recurs" style="background:'+rc.bg+';border:2px solid '+rc.cl+'44;"><div class="pp-recurs-icon" style="background:rgba(255,255,255,0.7);border:1.5px solid '+rc.cl+'33;">'+rc.ic+'</div><div style="font-size:13px;font-weight:800;color:'+rc.tc+';margin-bottom:4px;line-height:1.3;">'+e(rc.nm)+'</div><div style="font-size:11.5px;color:'+rc.cl+';line-height:1.45;">'+e(rc.ds)+'</div></a>';}).join("");
+  var pt=DESC[sorted[0].name].pt;
+  var consell=CONSELLS[pt]||"Visita les jornades de portes obertes de la UIB i dels centres de FP.";
+  var assigBars=ASS.map(function(nm,i){var v=st.ansA[i]||0,p=(v/4)*100;return'<div class="ar"><div class="al">'+e(nm)+'</div><div class="ab"><div class="af" style="width:'+p+'%"></div></div><div class="av">'+v+'/4</div></div>';}).join("");
+  var barsh=sorted.map(function(a){return'<div class="bar-row"><div class="bar-lbl">'+e(a.name)+'</div><div class="bar-track"><div class="bar-fill" style="width:'+a.p.toFixed(0)+'%;background:'+zCol(a.z)+';"></div></div><div class="bar-val">'+a.p.toFixed(0)+'%</div></div>';}).join("");
+  return'<div class="res-hero">'+SV_RES+'<h2>El teu perfil d\'orientació</h2><div class="meta">'+sl+'</div></div>'
+    +'<div class="sum-grid"><div class="sum-card"><div class="scv">'+sorted[0].p.toFixed(0)+'%</div><div class="scl">Àmbit principal</div></div><div class="sum-card"><div class="scv">'+r.mean.toFixed(1)+'%</div><div class="scl">Mitjana</div></div><div class="sum-card"><div class="scv">'+above+'</div><div class="scl">Per sobre la mitjana</div></div></div>'
+    +'<div class="sec-title">Els teus 3 àmbits més destacats</div><div class="top-cards">'+top3h+'</div>'
+    +'<div class="interp-box"><div class="ib-head">&#10022; Interpretació del teu perfil</div><div class="ib-body">'+e(st.interp)+'</div></div>'
+    +carh
+    +'<div class="sec-title">Puntuació detallada per àmbit</div><div class="sec-desc">Z compara el teu resultat amb la teva pròpia mitjana.</div>'
+    +'<div class="leg-row"><div class="li"><span class="ld" style="background:#7C3AED"></span>Punt fort</div><div class="li"><span class="ld" style="background:#0EA5E9"></span>Per sobre</div><div class="li"><span class="ld" style="background:#94a3b8"></span>Neutre</div><div class="li"><span class="ld" style="background:#F59E0B"></span>Per sota</div><div class="li"><span class="ld" style="background:#EF4444"></span>Poca afinitat</div></div>'
+    +barsh
+    +'<div class="sec-title">Interès en assignatures</div><div class="assig-sec">'+assigBars+'</div>'
+    +'<div class="pp-section"><div class="sec-title">Pròxims passos</div><div class="sec-desc">Recursos útils per continuar explorant el teu camí acadèmic.</div>'
+    +'<div class="pp-consell"><div class="pp-consell-head">&#128161; Consell personalitzat</div><div class="pp-consell-body">'+e(consell)+'</div></div>'
+    +'<div class="pp-block-title">Recursos i enllaços d\'interès</div>'
+    +'<div class="pp-recursos-grid">'+recH+'</div>'
+    +'<div class="pp-contacte"><span class="pp-contacte-icon">&#9993;</span><div><div class="pp-contacte-text">Si tens dubtes, contacta amb l\'orientador</div><a href="mailto:rfernandez@iessineu.net" class="pp-contacte-email">rfernandez@iessineu.net</a></div></div>'
+    +'</div>';
+}
+
+function doResults(root){
+  var html=buildResultsHtml(state);
+  root.innerHTML='<div class="results-wrap">'+html
+    +'<div class="act-row">'
+    +'<button class="btn-ghost" onclick="nouQ()">&#8617; Nou qüestionari</button>'
+    +'<button class="btn-start sm" id="exp-btn" onclick="exportImg()">&#128248; Exportar imatge</button>'
+    +'<button class="btn-ghost" style="flex:0.6" onclick="exportPDF()">&#128424; Desar PDF</button>'
+    +'</div>'
+    +'<div id="exp-fb" style="display:none;text-align:center;font-size:13px;color:#10B981;font-weight:700;margin-top:10px;"></div>'
+    +'</div>';
+  setTimeout(function(){root.querySelectorAll(".bar-fill").forEach(function(el){var w=el.style.width;el.style.width="0";requestAnimationFrame(function(){setTimeout(function(){el.style.width=w;},60);});});},120);
+}
+
+function togC(el){el.classList.toggle("open");var p=el.querySelector(".cc-desc-panel");if(p)p.style.display=el.classList.contains("open")?"block":"none";}
+
+function startQ(){var n=document.getElementById("ni");if(n)state.nom=n.value.trim();state.step="quiz";sv();render();window.scrollTo(0,0);}
+function resumeQ(){state.step="quiz";render();window.scrollTo(0,0);}
+function scrollToS(i){var el=document.getElementById("sb"+i);if(el)el.scrollIntoView({behavior:"smooth",block:"start"});}
+
+function setA(kind,idx,val){
+  if(kind==="q")state.ans[idx]=val;else state.ansA[idx]=val;
+  sv();
+  var sec=SECS.find(function(s){return s.isA?kind==="a":kind==="q"&&idx>=s.s&&idx<s.e;});
+  var card=document.getElementById("qc"+kind+idx);
+  if(card&&sec){card.style.borderColor=sec.c+"33";card.style.background=sec.b+"55";card.querySelector(".q-num").style.color=sec.c+"99";card.querySelectorAll(".sbtn").forEach(function(b,i){b.classList.toggle("selected",i===val);});}
+  var tot=Q.length+ASS.length;
+  var ans=state.ans.filter(function(a){return a!==null;}).length+state.ansA.filter(function(a){return a!==null;}).length;
+  var pct=Math.round((ans/tot)*100);
+  var tf=document.getElementById("tbf");if(tf)tf.style.width=pct+"%";
+  var tp=document.getElementById("tbp");if(tp)tp.textContent=pct+"%";
+  var tl=document.getElementById("tbl");if(tl)tl.textContent=ans+"/"+tot+" respostes";
+  SECS.forEach(function(s,si){
+    var a=sAns(s),t=sTot(s),p=Math.round((a/t)*100);
+    var f=document.getElementById("sbf"+si);if(f)f.style.width=p+"%";
+    var shc=document.getElementById("shc"+si);if(shc)shc.textContent=a+"/"+t;
+    var heads=document.querySelectorAll(".sb-head");
+    if(heads[si]){var nm=heads[si].querySelector(".sb-name");if(nm)nm.style.color=a===t?s.c:"";}
+    var pEl=document.querySelectorAll(".sb-pct")[si];if(pEl)pEl.textContent=p+"%";
+  });
+  var btn=document.getElementById("sub");
+  if(btn){if(ans===tot){btn.disabled=false;btn.innerHTML="Veure el meu perfil &#8594;";}else{btn.disabled=true;btn.textContent="Falten "+(tot-ans)+" preguntes";}}
+}
+
+async function doSubmit(){
+  state.step="loading";render();
+  var st=[{t:"Analitzant les teves respostes...",s:"Processant 135 preguntes"},{t:"Identificant els teus punts forts...",s:"Comparant els 13 àmbits"},{t:"Preparant el teu perfil...",s:"Ja gairebé!"}];
+  var si=0;var iv=setInterval(function(){si++;if(si<st.length){var te=document.getElementById("lt"),se=document.getElementById("ls");if(te)te.textContent=st[si].t;if(se)se.textContent=st[si].s;}},800);
+  state.res=calc();state.interp=interp(state.res);state.careers=getCareers(state.res);
+  await new Promise(function(r){setTimeout(r,2400);});clearInterval(iv);
+  var r2=state.res;
+  await saveAl({id:Date.now().toString(),nom:state.nom||"Alumne sense nom",data:new Date().toLocaleDateString("ca-ES",{day:"numeric",month:"long",year:"numeric"}),top1:r2.sorted[0].name,top2:r2.sorted[1].name,pct1:r2.sorted[0].p.toFixed(0),results:r2,interpretation:state.interp,ansA:state.ansA});
+  state.step="results";sv();render();window.scrollTo(0,0);
+}
+
+function nouQ(){
+  try{localStorage.removeItem(SK);}catch(ex){}
+  state={step:"intro",nom:"",ans:new Array(Q.length).fill(null),ansA:new Array(ASS.length).fill(null),res:null,interp:null,careers:[]};
+  view="alumne";
+  render();
+  window.scrollTo(0,0);
+}
+
+function exportPDF(){
+  var r=state.res,sorted=r.sorted,top5=sorted.slice(0,5);
+  var nom=state.nom||"Perfil";
+  var today=new Date().toLocaleDateString("ca-ES",{day:"numeric",month:"long",year:"numeric"});
+  var W=595,H=842; // A4 en punts aproximats
+  var cv=document.createElement("canvas");
+  cv.width=W*2;cv.height=H*2;
+  var ctx=cv.getContext("2d");ctx.scale(2,2);
+  var COLS=["#7C3AED","#EC4899","#0EA5E9","#10B981","#F59E0B","#F97316","#EF4444","#84CC16","#6366F1","#EF4444","#10B981","#3B82F6","#EF4444"];
+
+  // Fons blanc
+  ctx.fillStyle="#ffffff";ctx.fillRect(0,0,W,H);
+
+  // Capçalera morada
+  ctx.fillStyle="#7C3AED";rrx(ctx,0,0,W,70,0);ctx.fill();
+  ctx.fillStyle="#fff";ctx.font="bold 10px system-ui,sans-serif";ctx.fillText("IES SINEU — QÜESTIONARI D'ORIENTACIÓ ACADÈMICA I PROFESSIONAL",24,22);
+  ctx.font="bold 18px system-ui,sans-serif";ctx.fillText(nom,24,46);
+  ctx.font="10px system-ui,sans-serif";ctx.fillStyle="rgba(255,255,255,0.75)";ctx.fillText(today,24,62);
+
+  // Top 3 targetes
+  var tcW=(W-48-16)/3;
+  var tcBg=["#EDE9FE","#FCE7F3","#FEF3C7"],tcC=["#7C3AED","#EC4899","#F59E0B"],tcD=["#4C1D95","#831843","#78350F"];
+  sorted.slice(0,3).forEach(function(a,i){
+    var x=24+i*(tcW+8),y=84;
+    ctx.fillStyle=tcBg[i];rrx(ctx,x,y,tcW,80,8);ctx.fill();
+    ctx.strokeStyle=tcC[i];ctx.lineWidth=1.5;rrx(ctx,x,y,tcW,80,8);ctx.stroke();
+    ctx.font="15px sans-serif";ctx.fillStyle="#000";ctx.fillText(["🥇","🥈","🥉"][i],x+10,y+22);
+    ctx.fillStyle=tcD[i];ctx.font="bold 8px system-ui,sans-serif";ctx.fillText(["1r LLOC","2n LLOC","3r LLOC"][i],x+32,y+18);
+    ctx.font="bold 10px system-ui,sans-serif";
+    var wds=a.name.split(" ");var ln="",ly=y+32;
+    wds.forEach(function(w){var t=ln+(ln?" ":"")+w;if(ctx.measureText(t).width>tcW-20&&ln){ctx.fillText(ln,x+10,ly);ln=w;ly+=13;}else ln=t;});
+    ctx.fillText(ln,x+10,ly);
+    ctx.fillStyle=tcC[i];ctx.font="bold 18px system-ui,sans-serif";ctx.fillText(a.p.toFixed(0)+"%",x+10,y+72);
+  });
+
+  // Interpretació
+  var iy=178;
+  ctx.fillStyle="#EDE9FE";rrx(ctx,24,iy,W-48,8,6);ctx.fill(); // placeholder bar
+  ctx.fillStyle="#4C1D95";ctx.font="bold 10px system-ui,sans-serif";ctx.fillText("✦ Interpretació del perfil",24,iy-6);
+  ctx.fillStyle="#EDE9FE";rrx(ctx,24,iy,W-48,100,6);ctx.fill();
+  ctx.strokeStyle="#7C3AED";ctx.lineWidth=3;ctx.beginPath();ctx.moveTo(24,iy);ctx.lineTo(24,iy+100);ctx.stroke();
+  ctx.fillStyle="#4C1D95";ctx.font="10px system-ui,sans-serif";
+  var interpLines=state.interp.split("\n\n").join(" ").split(" ");
+  var line2="",lly=iy+14,maxW=W-60;
+  interpLines.forEach(function(w){
+    var t=line2+(line2?" ":"")+w;
+    if(ctx.measureText(t).width>maxW&&line2){ctx.fillText(line2,32,lly);line2=w;lly+=13;if(lly>iy+96)return;}
+    else line2=t;
+  });
+  if(lly<=iy+96)ctx.fillText(line2,32,lly);
+
+  // Barres de tots els àmbits
+  var bsy=296;
+  ctx.fillStyle="#1a1a2e";ctx.font="bold 10px system-ui,sans-serif";ctx.fillText("Puntuació detallada per àmbit",24,bsy-8);
+  sorted.forEach(function(a,i){
+    var y=bsy+i*22,lW=160,bx=24+lW+6,mW=W-bx-50;
+    ctx.fillStyle="#1a1a2e";ctx.font="9.5px system-ui,sans-serif";
+    ctx.fillText(a.name.length>24?a.name.slice(0,22)+"...":a.name,24,y+12);
+    ctx.fillStyle="#f1f0f8";rrx(ctx,bx,y+2,mW,13,4);ctx.fill();
+    var col=COLS[AMB.indexOf(a.name)]||"#7C3AED";
+    ctx.fillStyle=col;var fw=(a.p/100)*mW;rrx(ctx,bx,y+2,Math.max(fw,4),13,4);ctx.fill();
+    ctx.fillStyle="#64748b";ctx.font="bold 9px system-ui,sans-serif";ctx.fillText(a.p.toFixed(0)+"%",bx+mW+4,y+13);
+  });
+
+  // Assignatures
+  var asy=bsy+AMB.length*22+12;
+  ctx.fillStyle="#1a1a2e";ctx.font="bold 10px system-ui,sans-serif";ctx.fillText("Interès en assignatures",24,asy);
+  var aW=(W-48)/ASS.length-3;
+  ASS.forEach(function(nm,i){
+    var x=24+i*(aW+3),mH=40,bH=(state.ansA[i]||0)/4*mH,by=asy+10+(mH-bH);
+    ctx.fillStyle="#f1f0f8";rrx(ctx,x,asy+10,aW,mH,3);ctx.fill();
+    ctx.fillStyle="#7C3AED";ctx.globalAlpha=0.3+((state.ansA[i]||0)/4)*0.7;rrx(ctx,x,by,aW,bH,3);ctx.fill();ctx.globalAlpha=1;
+    ctx.fillStyle="#64748b";ctx.font="7.5px system-ui,sans-serif";ctx.textAlign="center";
+    ctx.fillText(nm.split("(")[0].trim().split(" ").slice(0,2).join(" "),x+aW/2,asy+10+mH+10);ctx.textAlign="left";
+  });
+
+  // Peu
+  ctx.fillStyle="#e2e8f0";ctx.fillRect(0,H-24,W,24);
+  ctx.fillStyle="#94a3b8";ctx.font="9px system-ui,sans-serif";ctx.fillText("Qüestionari d'Orientació Acadèmica i Professional — IES Sineu",24,H-9);
+
+  cv.toBlob(function(blob){
+    var url=URL.createObjectURL(blob);
+    var lk=document.createElement("a");
+    lk.download="perfil-orientacio-"+(state.nom||"alumne").replace(/\s+/g,"-").toLowerCase()+".png";
+    lk.href=url;document.body.appendChild(lk);lk.click();document.body.removeChild(lk);
+    setTimeout(function(){URL.revokeObjectURL(url);},1000);
+    showFb("✓ PDF desat com a imatge!");
+  },"image/png");
+}
+
+function doPDF(){exportPDF();}
+
+function showFb(msg){
+  var fb=document.getElementById("exp-fb");
+  if(fb){fb.textContent=msg;fb.style.display="block";setTimeout(function(){fb.style.display="none";},4000);}
+}
+
+function exportImg(){
+  var r=state.res,sorted=r.sorted,top5=sorted.slice(0,5);
+  var nom=state.nom||"Perfil";
+  var today=new Date().toLocaleDateString("ca-ES",{day:"numeric",month:"long",year:"numeric"});
+  var W=800,H=520,cv=document.createElement("canvas");
+  cv.width=W*2;cv.height=H*2;
+  var ctx=cv.getContext("2d");ctx.scale(2,2);
+  var COLS=["#7C3AED","#EC4899","#0EA5E9","#10B981","#F59E0B"];
+  ctx.fillStyle="#F8F7FF";ctx.fillRect(0,0,W,H);
+  ctx.fillStyle="#7C3AED";rrx(ctx,0,0,W,80,0);ctx.fill();
+  [[680,20,30,"#EC4899",.25],[730,50,20,"#F59E0B",.2],[750,15,12,"#10B981",.3]].forEach(function(a){ctx.fillStyle=a[3];ctx.globalAlpha=a[4];ctx.beginPath();ctx.arc(a[0],a[1],a[2],0,Math.PI*2);ctx.fill();});
+  ctx.globalAlpha=1;
+  ctx.fillStyle="#fff";ctx.font="bold 11px system-ui,sans-serif";ctx.fillText("QÜESTIONARI D'ORIENTACIÓ ACADÈMICA — IES SINEU",32,26);
+  ctx.font="bold 22px system-ui,sans-serif";ctx.fillText(nom,32,52);
+  ctx.font="11px system-ui,sans-serif";ctx.fillStyle="rgba(255,255,255,0.7)";ctx.fillText(today,32,70);
+  var tcW=(W-64-16)/3,meds=["🥇","🥈","🥉"],tBg=["#EDE9FE","#FCE7F3","#FEF3C7"],tC=["#7C3AED","#EC4899","#F59E0B"];
+  top5.slice(0,3).forEach(function(a,i){
+    var x=32+i*(tcW+8),y=100;
+    ctx.fillStyle=tBg[i];rrx(ctx,x,y,tcW,90,10);ctx.fill();
+    ctx.strokeStyle=tC[i];ctx.lineWidth=2;rrx(ctx,x,y,tcW,90,10);ctx.stroke();
+    ctx.font="18px sans-serif";ctx.fillStyle="#000";ctx.fillText(meds[i],x+12,y+26);
+    ctx.fillStyle=tC[i];ctx.font="bold 9px system-ui,sans-serif";ctx.fillText(["1r LLOC","2n LLOC","3r LLOC"][i],x+36,y+22);
+    ctx.fillStyle="#1a1a2e";ctx.font="bold 11px system-ui,sans-serif";
+    var ws=a.name.split(" ");var ln="",ly=y+38;
+    ws.forEach(function(w){var t=ln+(ln?" ":"")+w;if(ctx.measureText(t).width>tcW-20&&ln){ctx.fillText(ln,x+12,ly);ln=w;ly+=14;}else ln=t;});
+    ctx.fillText(ln,x+12,ly);
+    ctx.fillStyle=tC[i];ctx.font="bold 20px system-ui,sans-serif";ctx.fillText(a.p.toFixed(0)+"%",x+12,y+80);
+  });
+  var by2=210,bH=18,bG=28;
+  ctx.fillStyle="#1a1a2e";ctx.font="bold 12px system-ui,sans-serif";ctx.fillText("Puntuació per àmbits destacats",32,by2-12);
+  top5.forEach(function(a,i){
+    var y=by2+i*bG,lW=210,bx=32+lW+8,mW=W-bx-80;
+    ctx.fillStyle="#1a1a2e";ctx.font="11px system-ui,sans-serif";ctx.fillText(a.name.length>26?a.name.slice(0,24)+"...":a.name,32,y+bH-4);
+    ctx.fillStyle="#e2e8f0";rrx(ctx,bx,y,mW,bH,5);ctx.fill();
+    ctx.fillStyle=COLS[i];var fw=(a.p/100)*mW;rrx(ctx,bx,y,Math.max(fw,6),bH,5);ctx.fill();
+    ctx.fillStyle="#64748b";ctx.font="bold 11px system-ui,sans-serif";ctx.fillText(a.p.toFixed(0)+"%",bx+mW+8,y+bH-4);
+  });
+  var aY=360;ctx.fillStyle="#1a1a2e";ctx.font="bold 12px system-ui,sans-serif";ctx.fillText("Interès en assignatures",32,aY);
+  var ags=ASS.map(function(nm,i){return{nm:nm,v:state.ansA[i]||0};});
+  var aW=(W-64)/ags.length-4;
+  ags.forEach(function(a,i){
+    var x=32+i*(aW+4),mH=60,bH2=(a.v/4)*mH,by3=aY+16+(mH-bH2);
+    ctx.fillStyle="#e2e8f0";rrx(ctx,x,aY+16,aW,mH,4);ctx.fill();
+    ctx.fillStyle="#7C3AED";ctx.globalAlpha=0.3+(a.v/4)*0.7;rrx(ctx,x,by3,aW,bH2,4);ctx.fill();ctx.globalAlpha=1;
+    ctx.fillStyle="#64748b";ctx.font="8px system-ui,sans-serif";ctx.textAlign="center";
+    ctx.fillText(a.nm.split("(")[0].trim().split(" ").slice(0,2).join(" "),x+aW/2,aY+16+mH+11);ctx.textAlign="left";
+  });
+  ctx.fillStyle="#e2e8f0";ctx.fillRect(0,H-28,W,28);
+  ctx.fillStyle="#94a3b8";ctx.font="10px system-ui,sans-serif";ctx.fillText("Qüestionari d'Orientació Acadèmica i Professional — IES Sineu",32,H-10);
+  cv.toBlob(function(blob){
+    var url=URL.createObjectURL(blob);
+    var lk=document.createElement("a");
+    lk.download="perfil-orientacio-"+(state.nom||"alumne").replace(/\s+/g,"-").toLowerCase()+".png";
+    lk.href=url;
+    document.body.appendChild(lk);
+    lk.click();
+    document.body.removeChild(lk);
+    setTimeout(function(){URL.revokeObjectURL(url);},1000);
+    showFb("✓ Imatge descarregada!");
+  },"image/png");
+}
+
+function rrx(ctx,x,y,w,h,r){
+  ctx.beginPath();ctx.moveTo(x+r,y);ctx.lineTo(x+w-r,y);ctx.quadraticCurveTo(x+w,y,x+w,y+r);
+  ctx.lineTo(x+w,y+h-r);ctx.quadraticCurveTo(x+w,y+h,x+w-r,y+h);
+  ctx.lineTo(x+r,y+h);ctx.quadraticCurveTo(x,y+h,x,y+h-r);
+  ctx.lineTo(x,y+r);ctx.quadraticCurveTo(x,y,x+r,y);ctx.closePath();
+}
+
+// Sempre comencem amb portada neta, sense dades anteriors
+state={step:"intro",nom:"",ans:new Array(Q.length).fill(null),ansA:new Array(ASS.length).fill(null),res:null,interp:null,careers:[]};
+render();
+</script>
+</body>
+</html>
